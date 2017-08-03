@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/views/Home';
+import PublicLayout from '@/layouts/Public';
+import Home from '@/views/public/Home';
+import Browse from '@/views/public/Browse';
 
 Vue.use(Router);
 
@@ -10,7 +12,19 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home,
+      component: PublicLayout,
+      children: [
+        {
+          path: '',
+          name: 'Home',
+          component: Home,
+        },
+        {
+          path: 'browse',
+          name: 'Browse',
+          component: Browse,
+        },
+      ]
     },
   ],
 });
