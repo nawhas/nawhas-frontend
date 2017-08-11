@@ -23,16 +23,19 @@
     </header>
     <aside class="nav-sidebar">
       <div class="nav-sidebar__list">
-        <v-list>
-          <v-list-tile v-for="item in items" :to="item.to" :exact="item.exact">
-            <v-list-tile-action>
-              <v-icon>{{ item.action }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+        <div v-for="(item, index) in items" :key="item.group">
+          <v-list>
+            <v-list-tile v-for="link in item.children" :to="link.to" :exact="link.exact">
+              <v-list-tile-action>
+                <v-icon>{{ link.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>{{ link.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+          <v-divider v-if="index < items.length - 1"></v-divider>
+        </div>
       </div>
     </aside>
     <main>
@@ -50,16 +53,73 @@ export default {
     return {
       items: [
         {
-          action: 'home',
-          title: 'Home',
-          exact: true,
-          to: '/',
+          group: 'main',
+          children: [
+            {
+              icon: 'home',
+              title: 'Home',
+              exact: true,
+              to: '/',
+            },
+            {
+              icon: 'people',
+              title: 'Reciters',
+              exact: false,
+              to: '/reciters',
+            },
+            {
+              icon: 'label',
+              title: 'Topics',
+              exact: false,
+              to: '/topics',
+            },
+            {
+              icon: 'library_books',
+              title: 'My Library',
+              exact: false,
+              to: '/library',
+            }
+          ]
         },
         {
-          action: 'find_in_page',
-          title: 'Browse',
-          exact: false,
-          to: '/browse',
+          group: 'trending',
+          children: [
+            {
+              icon: 'trending_up',
+              title: 'Top Charts',
+              exact: true,
+              to: '/charts',
+            },
+            {
+              icon: 'whatshot',
+              title: 'Trending',
+              exact: false,
+              to: '/trending',
+            },
+            {
+              icon: 'date_range',
+              title: 'New Releases',
+              exact: false,
+              to: '/new-releases',
+            }
+          ]
+        },
+        {
+          group: 'manage',
+          children: [
+            {
+              icon: 'file_upload',
+              title: 'Upload',
+              exact: true,
+              to: '/upload',
+            },
+            {
+              icon: 'settings',
+              title: 'Settings',
+              exact: false,
+              to: '/settings',
+            }
+          ]
         }
       ]
     };
@@ -67,7 +127,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="stylus" scoped>
+@import '../styles/theme';
 .masthead {
   background: white;
   padding: 10px 16px;
@@ -85,6 +146,7 @@ export default {
     display: flex;
     min-width: 260px;
     padding-right: 30px;
+    padding-left: 8px;
   }
 
   .masthead__search {
@@ -136,11 +198,24 @@ export default {
   position: fixed;
   top: 64px;
   left: 0;
-  padding: 0;
+  padding: 8px 0 0 0;
   background: white;
   overflow-y: auto;
   overflow-x: hidden;
   border-right: 1px solid rgba(0, 0, 0, 0.08);
+
+  .list__tile__action {
+    justify-content center;
+  }
+  .list__tile--active {
+    .list__tile__action i.material-icons {
+      color: $theme.primary;
+    }
+    .list__tile__title {
+      font-weight: bold;
+      color: #333333;
+    }
+  }
 }
 
 main {
