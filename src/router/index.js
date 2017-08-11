@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 import Vue from 'vue';
 import Router from 'vue-router';
-import PublicLayout from '@/layouts/Public';
 
 Vue.use(Router);
 
@@ -10,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: PublicLayout,
+      component: require('@/layouts/Public'),
       children: [
         {
           path: '',
