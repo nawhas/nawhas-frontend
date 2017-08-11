@@ -1,8 +1,7 @@
+/* eslint-disable global-require */
 import Vue from 'vue';
 import Router from 'vue-router';
 import PublicLayout from '@/layouts/Public';
-import Home from '@/views/public/Home';
-import Browse from '@/views/public/Browse';
 
 Vue.use(Router);
 
@@ -16,12 +15,47 @@ export default new Router({
         {
           path: '',
           name: 'Home',
-          component: Home,
+          component: require('@/views/public/Home'),
         },
         {
-          path: 'browse',
-          name: 'Browse',
-          component: Browse,
+          path: 'reciters',
+          name: 'Reciters',
+          component: require('@/views/public/Reciters'),
+        },
+        {
+          path: 'topics',
+          name: 'Topics',
+          component: require('@/views/public/Topics'),
+        },
+        {
+          path: 'library',
+          name: 'Library',
+          component: require('@/views/public/Library'),
+        },
+        {
+          path: 'charts',
+          name: 'Top Charts',
+          component: require('@/views/public/TopCharts'),
+        },
+        {
+          path: 'trending',
+          name: 'Trending',
+          component: require('@/views/public/Trending'),
+        },
+        {
+          path: 'new-releases',
+          name: 'New Releases',
+          component: require('@/views/public/NewReleases'),
+        },
+        {
+          path: 'upload',
+          name: 'Upload',
+          component: require('@/views/public/Upload'),
+        },
+        {
+          path: 'settings',
+          name: 'Settings',
+          component: require('@/views/public/Settings'),
         },
       ]
     },
