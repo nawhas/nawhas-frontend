@@ -58,5 +58,21 @@ export default new Router({
         },
       ]
     },
+    {
+      path: '/auth',
+      component: require('@/layouts/Splash'),
+      children: [
+        {
+          path: 'redirect',
+          name: 'Auth Redirect',
+          component: require('@/views/auth/AuthRedirect')
+        },
+        {
+          path: 'callback',
+          name: 'Auth Callback',
+          component: require('@/views/auth/AuthCallback')
+        }
+      ]
+    }
   ],
 });

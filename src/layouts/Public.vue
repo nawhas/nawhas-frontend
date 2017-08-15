@@ -17,8 +17,13 @@
         </div>
       </div>
       <div class="masthead__right">
-        <v-btn flat @click="logIn()">Log In</v-btn>
-        <v-btn flat primary @click="signUp()">Sign Up</v-btn>
+        <router-link tag="span" to="/auth/redirect" v-if="!authenticated">
+          <v-btn flat>Log In</v-btn>
+        </router-link>
+        <router-link tag="span" to="/auth/redirect?type=signup" v-if="!authenticated">
+          <v-btn flat primary>Sign Up</v-btn>
+        </router-link>
+        <v-btn flat @click="logout" v-if="authenticated">Log Out</v-btn>
       </div>
     </header>
     <aside class="nav-sidebar">
@@ -45,26 +50,16 @@
 </template>
 
 <script>
-import QueryString from 'query-string';
-
 export default {
   name: 'Home',
   methods: {
-    logIn() {
-      window.location.replace(this.getLoginUrl());
-    },
-    getLoginUrl() {
-      const params = {
-        client_id: 1,
-        response_type: 'token',
-        scope: '',
-        redirect_url: encodeURIComponent('http://nawhas.app/auth/callback'),
-      };
-      return `http://api.nawhas.app/oauth/authorize?${QueryString.stringify(params)}`;
-    },
-    signUp() {
-      const params = {redirect: this.getLoginUrl()};
-      window.location.replace(`http://api.nawhas.app/register?${QueryString.stringify(params)}`);
+    logout() {
+      this.$store.dispatch('auth/logout');
+    }
+  },
+  computed: {
+    authenticated() {
+      return this.$store.getters['auth/authenticated'];
     },
   },
   data() {
@@ -141,7 +136,7 @@ export default {
         }
       ]
     };
-  }
+  },
 };
 </script>
 
