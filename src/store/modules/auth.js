@@ -6,18 +6,19 @@ import {
   getSignupUrl,
   setAccessToken
 } from '../../services/auth';
+import client from '../../services/client';
 import router from '../../router';
 
 const state = {
-  authenticated: !!getAccessToken(),
+  token: getAccessToken(),
 };
 
 const mutations = {
-  LOGIN(state) {
-    state.authenticated = true;
+  LOGIN(state, {token}) {
+    state.token = token;
   },
   LOGOUT(state) {
-    state.authenticated = false;
+    state.token = null;
   },
 };
 
@@ -35,19 +36,21 @@ const actions = {
     const expiration = getParameterByName('expires_in');
 
     setAccessToken(token, expiration);
-    commit('LOGIN');
+    commit('LOGIN', {token});
     router.push('/');
   },
   logout({commit}) {
-    clearAccessToken();
-    commit('LOGOUT');
-    router.push('/');
+    client.post('logout').then(() => {
+      clearAccessToken();
+      commit('LOGOUT');
+      router.push('/');
+    });
   }
 };
 
 const getters = {
   authenticated(state) {
-    return state.authenticated;
+    return !!state.token;
   }
 };
 

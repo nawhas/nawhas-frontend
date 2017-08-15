@@ -43,5 +43,7 @@ module.exports = {
     "no-multi-assign": 0,
     "object-curly-spacing": 0,
     "import/no-named-as-default-member": 0,
+    "quote-props": 0,
+    "dot-notation": 0,
   }
 }

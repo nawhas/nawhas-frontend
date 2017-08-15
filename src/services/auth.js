@@ -1,8 +1,5 @@
 import QueryString from 'query-string';
-
-export const API_DOMAIN = process.env.API_DOMAIN;
-export const APP_DOMAIN = process.env.APP_DOMAIN;
-export const CLIENT_ID = process.env.API_CLIENT_ID;
+import {API_DOMAIN, APP_DOMAIN, CLIENT_ID} from '../config';
 
 export function getLoginUrl() {
   const params = {
