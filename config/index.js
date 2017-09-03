@@ -4,7 +4,7 @@ var merge = require('webpack-merge')
 
 module.exports = {
   build: {
-    env: merge(require('./prod.env'), require(path.resolve(__dirname, '../.env.js'))),
+    env: merge(require('./prod.env')),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
@@ -23,7 +23,7 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report
   },
   dev: {
-    env: merge(require('./dev.env'), require(path.resolve(__dirname, '../.env.js')), {APP_DOMAIN: '"http://localhost:8080"'}),
+    env: merge(require('./dev.env')),
     port: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',

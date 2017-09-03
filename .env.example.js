@@ -2,5 +2,6 @@
 module.exports = {
   API_DOMAIN: '"http://api.nawhas.app"',
   APP_DOMAIN: '"http://nawhas.app"',
-  API_CLIENT_ID: 1
+  API_CLIENT_ID: 1,
+  DEV_API_CLIENT_ID: 2,
 };
