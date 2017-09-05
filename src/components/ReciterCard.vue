@@ -40,8 +40,8 @@ export default {
   },
   data() {
     return {
-      background: '#ddd',
-      textColor: 'black',
+      background: '#444444',
+      textColor: 'white',
     };
   }
 };
