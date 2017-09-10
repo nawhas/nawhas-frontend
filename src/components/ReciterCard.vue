@@ -1,5 +1,5 @@
 <template>
-  <v-card class="reciter-card" :style="{ 'background-color': background }">
+  <v-card :class="classObject" :style="{ 'background-color': background }">
     <div class="reciter-card__avatar">
       <v-avatar size="48px">
         <img ref="avatarElement" :src="avatar" :alt="name">
@@ -21,10 +21,12 @@ import Vibrant from 'node-vibrant';
 
 export default {
   name: 'reciter-card',
-  props: ['name', 'albums', 'avatar'],
+  props: ['name', 'albums', 'avatar', 'featured'],
   mounted() {
-    const image = this.$refs.avatarElement;
-    this.setBackgroundFromImage(image);
+    if (this.featured !== undefined) {
+      const image = this.$refs.avatarElement;
+      this.setBackgroundFromImage(image);
+    }
   },
   methods: {
     setBackgroundFromImage(image) {
@@ -39,10 +41,25 @@ export default {
     }
   },
   data() {
+    if (this.featured !== undefined) {
+      return {
+        background: '#444444',
+        textColor: 'white',
+      };
+    }
+
     return {
-      background: '#444444',
-      textColor: 'white',
+      background: 'transparent',
+      textColor: 'black',
     };
+  },
+  computed: {
+    classObject() {
+      return {
+        'reciter-card': true,
+        'reciter-card--featured': this.featured !== undefined,
+      };
+    }
   }
 };
 </script>
@@ -55,13 +72,22 @@ export default {
   padding: 16px;
   display: flex;
   align-items center;
-  background: gray;
   cursor: pointer;
   will-change: box-shadow background-color;
   transition: background-color $transition, box-shadow $transition;
+  elevation(0);
 
   &:hover {
-    elevation(8);
+    background-color: rgba(0,0,0,0.1) !important;
+  }
+
+  &--featured {
+    background: gray;
+    elevation(4);
+
+    &:hover {
+      elevation(8);
+    }
   }
 
   .reciter-card__text {

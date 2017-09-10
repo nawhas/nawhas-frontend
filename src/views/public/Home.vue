@@ -106,7 +106,4 @@ export default {
 </script>
 
 <style lang="stylus">
-.page-section {
-  padding: 24px 48px;
-}
 </style>
