@@ -81,7 +81,7 @@ export default {
   }
 
   .track-card__text {
-    padding: 24px;
+    padding: 16px 16px 16px 24px;
     will-change: color;
     transition: color $transition;
     overflow: hidden;
@@ -95,8 +95,8 @@ export default {
   }
 
   .track-card__album-art {
-    width: 112px;
-    height: 112px;
+    width: 96px;
+    height: 96px;
     position: relative;
     display: flex;
     align-items: center;

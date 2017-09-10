@@ -19,7 +19,12 @@ export default new Router({
         {
           path: 'reciters',
           name: 'Reciters',
-          component: require('@/views/public/Reciters'),
+          component: require('@/views/public/reciters/Index'),
+        },
+        {
+          path: 'reciters/:reciter',
+          name: 'Reciter Profile',
+          component: require('@/views/public/reciters/Reciter'),
         },
         {
           path: 'topics',

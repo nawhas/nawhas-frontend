@@ -10,22 +10,22 @@
       <v-container grid-list-lg class="pa-0" fluid>
         <v-layout row wrap>
           <v-flex xs12 sm6 md4>
-            <reciter-card name="Nadeem Sarwar" albums="16" :avatar="require('../../assets/nadeem-sarwar.jpg')" />
+            <reciter-card featured name="Nadeem Sarwar" albums="16" :avatar="require('../../assets/nadeem-sarwar.jpg')" />
           </v-flex>
           <v-flex xs12 sm6 md4>
-            <reciter-card name="Shabbir &amp; Abbas Tejani" albums="8" :avatar="require('../../assets/shabbir-abbas-tejani.jpg')" />
+            <reciter-card featured name="Shabbir &amp; Abbas Tejani" albums="8" :avatar="require('../../assets/shabbir-abbas-tejani.jpg')" />
           </v-flex>
           <v-flex xs12 sm6 md4>
-            <reciter-card name="Mir Hasan Mir" albums="29" :avatar="require('../../assets/mir-hasan-mir.jpg')" />
+            <reciter-card featured name="Mir Hasan Mir" albums="29" :avatar="require('../../assets/mir-hasan-mir.jpg')" />
           </v-flex>
           <v-flex xs12 sm6 md4>
-            <reciter-card name="Nadeem Sarwar" albums="16" :avatar="require('../../assets/nadeem-sarwar.jpg')" />
+            <reciter-card featured name="Nadeem Sarwar" albums="16" :avatar="require('../../assets/nadeem-sarwar.jpg')" />
           </v-flex>
           <v-flex xs12 sm6 md4>
-            <reciter-card name="Shabbir &amp; Abbas Tejani" albums="8" :avatar="require('../../assets/shabbir-abbas-tejani.jpg')" />
+            <reciter-card featured name="Shabbir &amp; Abbas Tejani" albums="8" :avatar="require('../../assets/shabbir-abbas-tejani.jpg')" />
           </v-flex>
           <v-flex xs12 sm6 md4>
-            <reciter-card name="Mir Hasan Mir" albums="29" :avatar="require('../../assets/mir-hasan-mir.jpg')" />
+            <reciter-card featured name="Mir Hasan Mir" albums="29" :avatar="require('../../assets/mir-hasan-mir.jpg')" />
           </v-flex>
         </v-layout>
       </v-container>

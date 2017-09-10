@@ -77,7 +77,7 @@ export default {
   transition: background-color $transition, box-shadow $transition;
   elevation(0);
 
-  &:hover {
+  &:hover:not(.reciter-card--featured) {
     background-color: rgba(0,0,0,0.1) !important;
   }
 
