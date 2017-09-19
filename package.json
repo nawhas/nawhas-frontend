@@ -19,6 +19,7 @@
     "contrast": "^1.0.1",
     "node-sass": "^4.5.3",
     "node-vibrant": "^3.0.0-alpha.2",
+    "nprogress": "^0.2.0",
     "query-string": "^5.0.0",
     "sass-loader": "^6.0.6",
     "vue": "^2.3.3",

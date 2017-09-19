@@ -9,23 +9,8 @@
       <h5>Top Reciters</h5>
       <v-container grid-list-lg class="pa-0" fluid>
         <v-layout row wrap>
-          <v-flex xs12 sm6 md4>
-            <reciter-card featured name="Nadeem Sarwar" albums="16" :avatar="require('../../assets/nadeem-sarwar.jpg')" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <reciter-card featured name="Shabbir &amp; Abbas Tejani" albums="8" :avatar="require('../../assets/shabbir-abbas-tejani.jpg')" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <reciter-card featured name="Mir Hasan Mir" albums="29" :avatar="require('../../assets/mir-hasan-mir.jpg')" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <reciter-card featured name="Nadeem Sarwar" albums="16" :avatar="require('../../assets/nadeem-sarwar.jpg')" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <reciter-card featured name="Shabbir &amp; Abbas Tejani" albums="8" :avatar="require('../../assets/shabbir-abbas-tejani.jpg')" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <reciter-card featured name="Mir Hasan Mir" albums="29" :avatar="require('../../assets/mir-hasan-mir.jpg')" />
+          <v-flex xs12 sm6 md4 v-for="reciter in reciters" :key="reciter.id">
+            <reciter-card featured :name="reciter.name" albums="16" :avatar="reciter.avatar" />
           </v-flex>
         </v-layout>
       </v-container>
@@ -34,52 +19,12 @@
       <h5>Trending Nawhas</h5>
       <v-container grid-list-lg class="pa-0" fluid>
         <v-layout row wrap>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Chotey Hazrat"
-                        album="Hamarey Hain Ya Hussain"
-                        :artwork="require('../../assets/nadeem-sarwar-vol-31.jpg')"
-                        year="2011"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="true" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Zainab Bibi"
-                        album="Zindabad Ya Hussain"
-                        :artwork="require('../../assets/nadeem-sarwar-vol-35.jpg')"
-                        year="2014"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="true" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Alamdar Na Aaya"
-                        album="Allah Allah Min Raasil Hussain"
-                        :artwork="require('../../assets/nadeem-sarwar-vol-34.jpg')"
-                        year="2011"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="true" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Chotey Hazrat"
-                        album="Hamarey Hain Ya Hussain"
-                        :artwork="require('../../assets/nadeem-sarwar-vol-31.jpg')"
-                        year="2011"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="true" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Zainab Bibi"
-                        album="Zindabad Ya Hussain"
-                        :artwork="require('../../assets/nadeem-sarwar-vol-35.jpg')"
-                        year="2014"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="true" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Alamdar Na Aaya"
-                        album="Allah Allah Min Raasil Hussain"
-                        :artwork="require('../../assets/nadeem-sarwar-vol-34.jpg')"
-                        year="2011"
-                        reciter="Nadeem Sarwar"
+          <v-flex xs12 sm6 md4 v-for="track in tracks" :key="track.id">
+            <track-card :name="track.name"
+                        :album="track.album.name"
+                        :artwork="track.album.artwork"
+                        :year="track.album.year"
+                        :reciter="track.reciter.name"
                         :show-reciter="true" />
           </v-flex>
         </v-layout>
@@ -89,6 +34,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
 import HeroBanner from '../../components/HeroBanner';
 import HeroQuote from '../../components/HeroQuote';
 import ReciterCard from '../../components/ReciterCard';
@@ -102,6 +48,24 @@ export default {
     ReciterCard,
     TrackCard,
   },
+  created() {
+    this.fetchData();
+  },
+  watch: {
+    '$route': 'fetchData',
+  },
+  methods: {
+    fetchData() {
+      this.$store.dispatch('popular/fetchPopular');
+    },
+  },
+  computed: {
+    ...mapState('popular', [
+      'reciters',
+      'tracks',
+      'albums',
+    ]),
+  }
 };
 </script>
 

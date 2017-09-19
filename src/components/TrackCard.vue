@@ -11,8 +11,9 @@
         {{ reciterYear }}
       </div>
     </div>
-    <div class="track-card__album-art" ref="artwork" :style="{'background-image': artworkBackground}">
+    <div class="track-card__album-art">
       <div class="track-card__album-art-gradient" :style="{background: gradient}"></div>
+      <img crossorigin ref="artwork" :src="artwork" :alt="name" />
     </div>
   </v-card>
 </template>
@@ -28,7 +29,7 @@ export default {
   },
   methods: {
     setBackgroundFromImage() {
-      Vibrant.from(this.artwork).getPalette().then((palette) => {
+      Vibrant.from(this.$refs.artwork.src).getPalette().then((palette) => {
         const swatch = palette.DarkMuted;
         if (!swatch) {
           return;
@@ -54,9 +55,6 @@ export default {
     gradient() {
       const rgb = Vibrant.Util.hexToRgb(this.background);
       return `linear-gradient(to right, rgba(${rgb.join(', ')}, 1), rgba(${rgb.join(', ')}, 0)`;
-    },
-    artworkBackground() {
-      return `url(${this.artwork})`;
     }
   },
 };

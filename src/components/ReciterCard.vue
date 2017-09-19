@@ -2,7 +2,7 @@
   <v-card :class="classObject" :style="{ 'background-color': background }">
     <div class="reciter-card__avatar">
       <v-avatar size="48px">
-        <img ref="avatarElement" :src="avatar" :alt="name">
+        <img crossorigin ref="avatarElement" :src="avatar" :alt="name">
       </v-avatar>
     </div>
     <div class="reciter-card__text" :style="{ 'color': textColor }">
@@ -25,7 +25,9 @@ export default {
   mounted() {
     if (this.featured !== undefined) {
       const image = this.$refs.avatarElement;
-      this.setBackgroundFromImage(image);
+      if (image && image.src) {
+        this.setBackgroundFromImage(image);
+      }
     }
   },
   methods: {

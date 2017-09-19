@@ -27,6 +27,11 @@ export default new Router({
           component: require('@/views/public/reciters/Reciter'),
         },
         {
+          path: 'reciters/:reciter/albums/:album/tracks/:track',
+          name: 'Track Page',
+          component: require('@/views/public/reciters/Track'),
+        },
+        {
           path: 'topics',
           name: 'Topics',
           component: require('@/views/public/Topics'),
