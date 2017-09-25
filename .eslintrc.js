@@ -46,5 +46,6 @@ module.exports = {
     "quote-props": 0,
     "dot-notation": 0,
     "spaced-comment": 0,
+    "arrow-parens": 0,
   }
 }

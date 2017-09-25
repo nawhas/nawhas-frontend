@@ -10,7 +10,7 @@
       <v-container grid-list-lg class="pa-0" fluid>
         <v-layout row wrap>
           <v-flex xs12 sm6 md4 v-for="reciter in reciters" :key="reciter.id">
-            <reciter-card featured :name="reciter.name" albums="16" :avatar="reciter.avatar" />
+            <reciter-card featured v-bind="reciter" />
           </v-flex>
         </v-layout>
       </v-container>
@@ -19,13 +19,8 @@
       <h5>Trending Nawhas</h5>
       <v-container grid-list-lg class="pa-0" fluid>
         <v-layout row wrap>
-          <v-flex xs12 sm6 md4 v-for="track in tracks" :key="track.id">
-            <track-card :name="track.name"
-                        :album="track.album.name"
-                        :artwork="track.album.artwork"
-                        :year="track.album.year"
-                        :reciter="track.reciter.name"
-                        :show-reciter="true" />
+          <v-flex xs12 sm6 md4 v-for="track in tracks" v-bind:key="track.id">
+            <track-card v-bind="track" :show-reciter="true" />
           </v-flex>
         </v-layout>
       </v-container>
@@ -34,7 +29,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {getTopReciters, getTopTracks} from '../../services/popular';
 import HeroBanner from '../../components/HeroBanner';
 import HeroQuote from '../../components/HeroQuote';
 import ReciterCard from '../../components/ReciterCard';
@@ -48,24 +43,31 @@ export default {
     ReciterCard,
     TrackCard,
   },
-  created() {
-    this.fetchData();
-  },
-  watch: {
-    '$route': 'fetchData',
-  },
   methods: {
-    fetchData() {
-      this.$store.dispatch('popular/fetchPopular');
+    setData({reciters, tracks}) {
+      this.reciters = reciters;
+      this.tracks = tracks;
     },
   },
-  computed: {
-    ...mapState('popular', [
-      'reciters',
-      'tracks',
-      'albums',
-    ]),
-  }
+  beforeRouteEnter(to, from, next) {
+    Promise.all([
+      getTopReciters({limit: 6}),
+      getTopTracks({limit: 6}),
+    ]).then((responses) => {
+      const [reciters, tracks] = responses;
+
+      next((vm) => vm.setData({
+        reciters: reciters.data.data,
+        tracks: tracks.data.data,
+      }));
+    });
+  },
+  data() {
+    return {
+      reciters: [],
+      tracks: [],
+    };
+  },
 };
 </script>
 

@@ -21,7 +21,7 @@ class Client {
   delete(url, data = {}) {
     return this.request('DELETE', url, data);
   }
-  request(method = 'GET', url, {data}) {
+  request(method = 'GET', url, data = {}) {
     const config = {method};
 
     if (url.startsWith('/')) {

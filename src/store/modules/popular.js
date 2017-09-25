@@ -34,51 +34,66 @@ const mutations = {
   }
 };
 
+const defaultParams = {limit: 6};
 const actions = {
   fetchPopular({commit}) {
     commit('FETCH');
-    Promise.all([
-      client.get('/v1/popular/reciters?limit=6'),
-      client.get('/v1/popular/albums?limit=6'),
-      client.get('/v1/popular/tracks?limit=6'),
-    ]).then((values) => {
-      const [reciters, albums, tracks] = values;
-      commit('FETCH_ALL_SUCCESS', {
-        reciters: reciters.data.data,
-        albums: albums.data.data,
-        tracks: tracks.data.data,
-      });
+
+    return new Promise((resolve, reject) => {
+      Promise.all([
+        client.get('/v1/popular/reciters?limit=6'),
+        client.get('/v1/popular/albums?limit=6'),
+        client.get('/v1/popular/tracks?limit=6'),
+      ]).then((values) => {
+        const [reciters, albums, tracks] = values;
+        commit('FETCH_ALL_SUCCESS', {
+          reciters: reciters.data.data,
+          albums: albums.data.data,
+          tracks: tracks.data.data,
+        });
+        resolve();
+      }).catch(reject);
     });
   },
-  fetchReciters({commit}) {
+  fetchReciters({commit}, {limit} = defaultParams) {
     commit('FETCH');
-    client.get('/v1/popular/reciters').then((response) => {
-      commit('FETCH_RECITERS_SUCCESS', {
-        reciters: response.data.data
-      });
+
+    return new Promise((resolve, reject) => {
+      client.get('/v1/popular/reciters', {limit}).then((response) => {
+        commit('FETCH_RECITERS_SUCCESS', {
+          reciters: response.data.data
+        });
+        resolve();
+      }).catch(reject);
     });
   },
-  fetchAlbums({commit}) {
+  fetchAlbums({commit}, {limit} = defaultParams) {
     commit('FETCH');
-    client.get('/v1/popular/albums').then((response) => {
-      commit('FETCH_ALBUMS_SUCCESS', {
-        albums: response.data.data
-      });
+
+    return new Promise((resolve, reject) => {
+      client.get('/v1/popular/albums', {limit}).then((response) => {
+        commit('FETCH_ALBUMS_SUCCESS', {
+          albums: response.data.data
+        });
+        resolve();
+      }).catch(reject);
     });
   },
-  fetchTracks({commit}) {
+  fetchTracks({commit}, {limit} = defaultParams) {
     commit('FETCH');
-    client.get('/v1/popular/tracks').then((response) => {
-      commit('FETCH_TRACKS_SUCCESS', {
-        tracks: response.data.data
-      });
+
+    return new Promise((resolve, reject) => {
+      client.get('/v1/popular/tracks', {limit}).then((response) => {
+        commit('FETCH_TRACKS_SUCCESS', {
+          tracks: response.data.data
+        });
+        resolve();
+      }).catch(reject);
     });
   },
 };
 
-const getters = {
-
-};
+const getters = {};
 
 export default {
   state,

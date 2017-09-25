@@ -4,8 +4,8 @@
       <div class="track-card__name body-2" :title="name">
         {{ name }}
       </div>
-      <div class="track-card__album caption" :title="album">
-        {{ album }}
+      <div class="track-card__album caption" :title="album.name">
+        {{ album.name }}
       </div>
       <div class="track-card__reciter-year caption" :title="reciterYear">
         {{ reciterYear }}
@@ -13,7 +13,7 @@
     </div>
     <div class="track-card__album-art">
       <div class="track-card__album-art-gradient" :style="{background: gradient}"></div>
-      <img crossorigin ref="artwork" :src="artwork" :alt="name" />
+      <img crossorigin ref="artwork" :src="album.artwork" :alt="name" />
     </div>
   </v-card>
 </template>
@@ -23,7 +23,7 @@ import Vibrant from 'node-vibrant';
 
 export default {
   name: 'track-card',
-  props: ['name', 'album', 'reciter', 'year', 'artwork', 'showReciter'],
+  props: ['name', 'slug', 'album', 'reciter', 'slug', 'showReciter'],
   mounted() {
     this.setBackgroundFromImage();
   },
@@ -48,9 +48,9 @@ export default {
   computed: {
     reciterYear() {
       if (this.showReciter) {
-        return `${this.reciter} • ${this.year}`;
+        return `${this.reciter.name} • ${this.album.year}`;
       }
-      return this.year;
+      return this.album.year;
     },
     gradient() {
       const rgb = Vibrant.Util.hexToRgb(this.background);

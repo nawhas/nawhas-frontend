@@ -11,15 +11,14 @@
     </div>
     <v-data-table
         :headers="headers"
-        :items="tracks"
+        :items="tracks.data"
         hide-actions
         class="album__tracks"
     >
       <template slot="items" scope="props">
         <td class="text-xs-right">{{ props.item.number }}</td>
         <td>{{ props.item.name }}</td>
-        <td>{{ props.item.reciter }}</td>
-        <td>{{ props.item.topics.join(', ') }}</td>
+        <td>{{ props.item.reciter.name }}</td>
       </template>
     </v-data-table>
   </v-card>
@@ -30,7 +29,7 @@ import Vibrant from 'node-vibrant';
 
 export default {
   name: 'album',
-  props: ['name', 'album', 'year', 'artwork'],
+  props: ['name', 'album', 'year', 'tracks', 'artwork'],
   mounted() {
     this.setBackgroundFromImage();
   },
@@ -48,18 +47,6 @@ export default {
   },
   data() {
     return {
-      tracks: [
-        {number: 1, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-        {number: 2, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-        {number: 3, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-        {number: 4, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-        {number: 5, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-        {number: 6, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-        {number: 7, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-        {number: 8, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-        {number: 9, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-        {number: 10, name: 'Allah Allah Min Raasin Hussain', reciter: 'Nadeem Sarwar', topics: ['Imam Hussain', 'General']},
-      ],
       headers: [
         {
           text: '#',
@@ -73,13 +60,13 @@ export default {
         {
           text: 'Reciter',
           align: 'left',
-          value: 'reciter',
+          value: 'reciter.name',
         },
-        {
-          text: 'Topics',
-          align: 'left',
-          value: 'topics',
-        },
+//        {
+//          text: 'Topics',
+//          align: 'left',
+//          value: 'topics',
+//        },
       ],
       background: '#444444',
       textColor: 'white',
@@ -98,7 +85,7 @@ export default {
     },
     artworkBackground() {
       return `url(${this.artwork})`;
-    }
+    },
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <v-card :class="classObject" :style="{ 'background-color': background }">
+  <v-card :class="classObject" :style="{ 'background-color': background }" @click="goToReciter()">
     <div class="reciter-card__avatar">
       <v-avatar size="48px">
         <img crossorigin ref="avatarElement" :src="avatar" :alt="name">
@@ -9,8 +9,8 @@
       <div class="reciter-card__name body-2" :title="name">
         {{ name }}
       </div>
-      <div class="reciter-card__albums caption" :title="albums + ' Albums'">
-        {{ albums }} Albums
+      <div class="reciter-card__albums caption" :title="albumCount + ' Albums'">
+        {{ albumCount }} Albums
       </div>
     </div>
   </v-card>
@@ -21,7 +21,9 @@ import Vibrant from 'node-vibrant';
 
 export default {
   name: 'reciter-card',
-  props: ['name', 'albums', 'avatar', 'featured'],
+  props: [
+    'id', 'name', 'slug', 'albumCount', 'avatar', 'createdAt', 'updatedAt', 'featured'
+  ],
   mounted() {
     if (this.featured !== undefined) {
       const image = this.$refs.avatarElement;
@@ -31,6 +33,9 @@ export default {
     }
   },
   methods: {
+    goToReciter() {
+      this.$router.push(`/reciters/${this.slug}`);
+    },
     setBackgroundFromImage(image) {
       Vibrant.from(image.src).getPalette().then((palette) => {
         const swatch = palette.DarkVibrant;

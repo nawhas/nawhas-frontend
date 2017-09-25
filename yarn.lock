@@ -4649,7 +4649,7 @@ normalize-url@^1.4.0:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-nprogress@^0.2.0:
+nprogress@0.2.0, nprogress@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
 
@@ -6668,6 +6668,16 @@ vue-loader@^12.1.0:
     vue-hot-reload-api "^2.1.0"
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.2.2"
+
+vue-nprogress@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/vue-nprogress/-/vue-nprogress-0.1.5.tgz#574b412f1034012daaf46299d5505d5812f406e6"
+  dependencies:
+    nprogress "0.2.0"
+
+vue-progressbar@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/vue-progressbar/-/vue-progressbar-0.7.3.tgz#28ca98fa1afa603644a443f18c7c45fe5d290144"
 
 vue-router@^2.6.0:
   version "2.7.0"

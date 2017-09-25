@@ -2,38 +2,44 @@ import client from '@/services/client';
 
 const state = {
   collection: [],
-  loaded: false,
-  pending: false
+  current: null,
 };
 
 const mutations = {
-  FETCH(state) {
-    state.pending = true;
-  },
-  FETCH_SUCCESS(state, payload) {
-    state.pending = false;
-    state.loaded = true;
+  FETCH_RECITERS(state, payload) {
     state.collection = payload.collection;
   },
-  FETCH_FAILURE(state) {
-    state.pending = false;
-  }
+  FETCH_RECITER(state, payload) {
+    state.current = payload.reciter;
+  },
 };
 
 const actions = {
   fetchReciters({commit}) {
-    commit('FETCH');
-    client.get('/v1/reciters').then((response) => {
-      commit('FETCH_SUCCESS', {
-        collection: response.data.data
-      });
+    return new Promise((resolve, reject) => {
+      client.get('/v1/reciters').then((response) => {
+        commit('FETCH_RECITERS', {
+          collection: response.data.data
+        });
+
+        resolve();
+      }).catch(reject);
+    });
+  },
+  fetchReciter({commit}, {id}) {
+    return new Promise((resolve, reject) => {
+      client.get(`/v1/reciters/${id}`).then((response) => {
+        commit('FETCH_RECITER', {
+          reciter: response.data
+        });
+
+        resolve();
+      }).catch(reject);
     });
   }
 };
 
-const getters = {
-
-};
+const getters = {};
 
 export default {
   state,

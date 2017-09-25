@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <nprogress-container></nprogress-container>
     <header class="masthead">
       <div class="masthead__title">
         <img src="../assets/nawhas-logo-wordmark-vector.svg" height="38"
@@ -50,8 +51,13 @@
 </template>
 
 <script>
+import NprogressContainer from 'vue-nprogress/src/NprogressContainer';
+
 export default {
   name: 'Home',
+  components: {
+    NprogressContainer
+  },
   methods: {
     logout() {
       this.$store.dispatch('auth/logout');
