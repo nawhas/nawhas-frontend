@@ -6,15 +6,14 @@
       </v-avatar>
       <div class="album__details" :style="{ color: textColor }">
         <h5 class="album__title">{{ name }}</h5>
-        <h6 class="album__release-date"><strong>{{ year }}</strong> • Muharram 1436</h6>
+        <h6 class="album__release-date"><strong>{{ year }}</strong> &bull; {{ tracks.data.length }} tracks</h6>
       </div>
     </div>
     <v-data-table
         :headers="headers"
         :items="tracks.data"
         hide-actions
-        class="album__tracks"
-    >
+        class="album__tracks">
       <template slot="items" scope="props">
         <td class="text-xs-right">{{ props.item.number }}</td>
         <td>{{ props.item.name }}</td>
