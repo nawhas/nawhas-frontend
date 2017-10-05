@@ -1,110 +1,106 @@
 <template>
-  <div>
-    <div class="reciter-hero">
-      <div class="reciter-hero__ribbon"></div>
-      <div class="reciter-hero__content">
-        <v-card class="reciter-hero__card">
-          <div class="reciter-hero__avatar">
-            <v-avatar size="152px" class="white">
-              <img src="../../../assets/nadeem-sarwar.jpg" alt="Nadeem Sarwar" />
+  <div v-if="track">
+    <div class="track-hero" :style="{'background-color': background, color: textColor}">
+      <div class="track-hero__content">
+        <div class="track-hero__left">
+          <div class="track-hero__avatar">
+            <v-avatar size="120px" class="white" tile>
+              <img :src="track.album.artwork" :alt="track.album.name" />
             </v-avatar>
           </div>
-          <h4 class="reciter-hero__title">
-            Nadeem Sarwar
-          </h4>
-          <ul class="reciter-hero__social">
-            <li><a href=""><i class="fa fa-globe"></i></a></li>
-            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-            <li><a href=""><i class="fa fa-youtube-play"></i></a></li>
-            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-            <li><a href=""><i class="fa fa-instagram"></i></a></li>
+          <div class="track-hero__text">
+            <h4 class="track-hero__title">{{ track.name }}</h4>
+            <div class="track-hero__meta">
+              <p>{{ track.reciter.name }}</p>
+              <p>{{ track.album.year }} &bull; {{ track.album.name }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="track-hero__actions">
+          <ul>
+            <li><v-btn icon class="white--text"><v-icon>add_to_photos</v-icon></v-btn></li>
+            <li><v-btn icon class="white--text"><v-icon>share</v-icon></v-btn></li>
+            <li><v-btn icon class="white--text"><v-icon>print</v-icon></v-btn></li>
+            <li><v-btn icon class="white--text"><v-icon>more_horiz</v-icon></v-btn></li>
           </ul>
-          <p class="reciter-hero__bio">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis tellus metus. In eget tortor ut mauris bibendum dapibus. Ut facilisis tincidunt sodales. Integer lobortis fermentum purus ac feugiat. Nunc sit amet volutpat mi. Donec enim quam, placerat nec sapien in, blandit euismod velit. Praesent ut libero a nunc dapibus pellentesque. Curabitur dapibus, nulla ac ullamcorper faucibus, nulla diam viverra eros, nec vulputate urna lectus at lacus. Nunc massa enim, molestie vel magna vel, rutrum fermentum arcu. Vivamus cursus diam massa, vitae congue tellus varius sed. Duis maximus aliquam enim eget commodo.
-          </p>
-        </v-card>
+        </div>
       </div>
     </div>
-    <section class="page-section" id="top-reciters-section">
-      <h5>Top Nawhas</h5>
-      <v-container grid-list-lg class="pa-0" fluid>
-        <v-layout row wrap>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Chotey Hazrat"
-                        album="Hamarey Hain Ya Hussain"
-                        :artwork="require('../../../assets/nadeem-sarwar-vol-31.jpg')"
-                        year="2011"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="false" />
+    <div class="track-page-content" v-if="track">
+      <v-container grid-list-xl>
+        <v-layout row>
+          <v-flex md8>
+            <v-card class="track-page-content__card track-page-content__card--lyrics lyrics">
+              <div class="lyrics__content" v-if="track.lyrics" v-bind="track.lyrics"></div>
+              <div class="lyrics__empty" v-else>
+                <div class="lyrics__empty-message">We don't have a write-up for this nawha yet.</div>
+              </div>
+            </v-card>
           </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Zainab Bibi"
-                        album="Zindabad Ya Hussain"
-                        :artwork="require('../../../assets/nadeem-sarwar-vol-35.jpg')"
-                        year="2014"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="false" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Alamdar Na Aaya"
-                        album="Allah Allah Min Raasil Hussain"
-                        :artwork="require('../../../assets/nadeem-sarwar-vol-34.jpg')"
-                        year="2011"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="false" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Chotey Hazrat"
-                        album="Hamarey Hain Ya Hussain"
-                        :artwork="require('../../../assets/nadeem-sarwar-vol-31.jpg')"
-                        year="2011"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="false" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Zainab Bibi"
-                        album="Zindabad Ya Hussain"
-                        :artwork="require('../../../assets/nadeem-sarwar-vol-35.jpg')"
-                        year="2014"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="false" />
-          </v-flex>
-          <v-flex xs12 sm6 md4>
-            <track-card name="Alamdar Na Aaya"
-                        album="Allah Allah Min Raasil Hussain"
-                        :artwork="require('../../../assets/nadeem-sarwar-vol-34.jpg')"
-                        year="2011"
-                        reciter="Nadeem Sarwar"
-                        :show-reciter="false" />
+          <v-flex md4>
+            <v-card class="track-page-content__card track-page-content__card--audio">Audio</v-card>
+            <v-card class="track-page-content__card track-page-content__card--audio">Video</v-card>
+            <v-card class="track-page-content__card track-page-content__card--album">More</v-card>
           </v-flex>
         </v-layout>
       </v-container>
-    </section>
-    <section class="page-section" id="all-reciters-section">
-      <h5>Albums</h5>
-      <album name="Zindabad Ya Hussain"
-             :artwork="require('../../../assets/nadeem-sarwar-vol-35.jpg')"
-             year="2014"></album>
-      <album name="Allah Allah Min Raasil Hussain"
-             :artwork="require('../../../assets/nadeem-sarwar-vol-34.jpg')"
-             year="2013"></album>
-    </section>
+    </div>
   </div>
 </template>
 
 <script>
+import Vibrant from 'node-vibrant';
+import {getTrack} from '../../../services/tracks';
 import HeroBanner from '../../../components/HeroBanner';
 import ReciterCard from '../../../components/ReciterCard';
 import TrackCard from '../../../components/TrackCard';
 import Album from '../../../components/Album';
 
 export default {
-  name: 'Reciter-Profile',
+  name: 'TrackPage',
   components: {
     HeroBanner,
     TrackCard,
     ReciterCard,
     Album,
+  },
+  data() {
+    return {
+      track: null,
+      background: '#222',
+      textColor: '#fff',
+    };
+  },
+  methods: {
+    setTrack(track) {
+      this.track = track;
+      this.setBackgroundFromImage();
+    },
+    setBackgroundFromImage() {
+      if (!this.track) {
+        return;
+      }
+      Vibrant.from(this.track.album.artwork).getPalette().then((palette) => {
+        const swatch = palette.DarkMuted;
+        if (!swatch) {
+          return;
+        }
+        this.background = swatch.getHex();
+        this.textColor = swatch.getBodyTextColor();
+      });
+    },
+  },
+  beforeRouteEnter(to, from, next) {
+    getTrack(to.params.reciter, to.params.album, to.params.track).then((response) => {
+      next((vm) => vm.setTrack(response.data));
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.setTrack(null);
+    getTrack(to.params.reciter, to.params.album, to.params.track).then((response) => {
+      this.setTrack(response.data);
+      next();
+    });
   },
 };
 </script>
@@ -112,12 +108,96 @@ export default {
 <style lang="stylus" scoped>
 @import '../../../styles/theme.styl';
 @import '../../../styles/_variables.styl';
+@import '../../node_modules/vuetify/src/stylus/settings/_elevations.styl';
+
+.track-hero {
+  width: 100%;
+  padding-bottom: 80px;
+
+  .track-hero__content {
+    max-width: 1000px;
+    padding: 24px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .track-hero__left {
+      display: flex;
+      align-items: center;
+    }
+    .track-hero__avatar {
+      border: 2px solid white;
+      border-radius: 4px;
+      overflow: hidden;
+      elevation(2);
+      margin-right: 24px;
+    }
+    .track-hero__title {
+      font-family: 'Roboto Slab', sans-serif;
+      font-weight: bold;
+      font-size: 38px;
+    }
+    .track-hero__meta {
+      p {
+        font-size: 15px;
+        margin: 0 0 6px 0;
+        padding: 0;
+      }
+    }
+    .track-hero__actions {
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+
+        li {
+          margin: -2px 0 -2px 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+.track-page-content {
+  margin-top: -104px;
+  padding: 0 8px;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .track-page-content__card {
+    padding: 24px;
+    margin-bottom: 24px;
+    height: 200px;
+
+    &--lyrics {
+
+      .lyrics__empty {
+        display: flex;
+        justify-content: center;
+        color: rgba(0,0,0,0.3);
+        font-size: 20px;
+        height: 400px;
+        font-weight: 300;
+
+        .lyrics__empty-message {
+          display: flex;
+          margin: auto;
+          align-self: center;
+        }
+      }
+    }
+  }
+}
 
 .reciter-hero {
   .reciter-hero__ribbon {
     width: 100%;
-    height: 300px;
-    margin-bottom: -300px;
+    height: 220px;
+    margin-bottom: -220px;
     background: linear-gradient(to bottom right, #E90500, #FA6000);
   }
   .reciter-hero__content {
@@ -173,7 +253,7 @@ export default {
     }
   }
   .reciter-hero__bio {
-    margin: 8px 0 0 0;
+    margin: 16px 0 0 0;
     padding: 0;
     max-height: 108px;
     overflow: hidden;

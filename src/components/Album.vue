@@ -15,9 +15,11 @@
         hide-actions
         class="album__tracks">
       <template slot="items" scope="props">
-        <td class="text-xs-right">{{ props.item.number }}</td>
-        <td>{{ props.item.name }}</td>
-        <td>{{ props.item.reciter.name }}</td>
+        <tr @click="goToTrack(props.item)" class="album__track">
+          <td class="text-xs-right">{{ props.item.number }}</td>
+          <td>{{ props.item.name }}</td>
+          <td>{{ props.item.reciter.name }}</td>
+        </tr>
       </template>
     </v-data-table>
   </v-card>
@@ -42,7 +44,10 @@ export default {
         this.background = swatch.getHex();
         this.textColor = swatch.getBodyTextColor();
       });
-    }
+    },
+    goToTrack(track) {
+      this.$router.push(`/reciters/${track.reciter.slug}/albums/${this.year}/tracks/${track.slug}`);
+    },
   },
   data() {
     return {
@@ -131,6 +136,9 @@ export default {
     .datatable {
       th:focus, td:focus {
         outline: none !important;
+      }
+      .album__track {
+        cursor: pointer;
       }
     }
   }

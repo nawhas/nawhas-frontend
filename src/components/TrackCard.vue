@@ -1,5 +1,5 @@
 <template>
-  <v-card class="track-card" :style="{ 'background-color': background }">
+  <v-card class="track-card" :style="{ 'background-color': background }" @click="goToTrack()">
     <div class="track-card__text" :style="{ 'color': textColor }">
       <div class="track-card__name body-2" :title="name">
         {{ name }}
@@ -37,7 +37,10 @@ export default {
         this.background = swatch.getHex();
         this.textColor = swatch.getBodyTextColor();
       });
-    }
+    },
+    goToTrack() {
+      this.$router.push(`/reciters/${this.reciter.slug}/albums/${this.album.year}/tracks/${this.slug}`);
+    },
   },
   data() {
     return {
