@@ -27,7 +27,7 @@ export default {
       //  finish the progress bar
       this.$Progress.finish();
     });
-  }
+  },
 };
 </script>
 

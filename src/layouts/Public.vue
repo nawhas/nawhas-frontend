@@ -29,7 +29,7 @@
     </header>
     <aside class="nav-sidebar">
       <div class="nav-sidebar__list">
-        <div v-for="(item, index) in items" :key="item.group">
+        <div v-for="(item, index) in navigation" :key="item.group">
           <v-list>
             <v-list-tile v-for="link in item.children" :key="link.to" :to="link.to" :exact="link.exact">
               <v-list-tile-action>
@@ -40,7 +40,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
-          <v-divider v-if="index < items.length - 1"></v-divider>
+          <v-divider v-if="index < navigation.length - 1"></v-divider>
         </div>
       </div>
     </aside>
@@ -66,6 +66,32 @@ export default {
   computed: {
     authenticated() {
       return this.$store.getters['auth/authenticated'];
+    },
+    navigation() {
+      // return filtered nav list based on role
+      const items = [];
+      const role = this.$store.getters['auth/isAdmin'];
+
+      this.items.forEach((group) => {
+        if (group.role && group.role !== role) {
+          return;
+        }
+
+        const children = [];
+        group.children.forEach((child) => {
+          if (child.role && child.role !== role) {
+            return;
+          }
+          children.push(child);
+        });
+        group.children = children;
+
+        if (group.children.length > 0) {
+          items.push(group);
+        }
+      });
+
+      return items;
     },
   },
   data() {
@@ -131,12 +157,14 @@ export default {
               title: 'Upload',
               exact: true,
               to: '/upload',
+              role: 'admin',
             },
             {
               icon: 'settings',
               title: 'Settings',
               exact: false,
               to: '/settings',
+              role: 'admin',
             }
           ]
         }

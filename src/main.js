@@ -29,10 +29,12 @@ Vue.use(Vuetify);
 sync(store, router);
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store,
-  template: '<App/>',
-  components: { App },
+store.dispatch('auth/fetchUser').then(() => {
+  new Vue({
+    el: '#app',
+    router,
+    store,
+    template: '<App/>',
+    components: { App },
+  });
 });
