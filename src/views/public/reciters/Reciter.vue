@@ -20,6 +20,7 @@
             <!--<li><a href=""><i class="fa fa-instagram"></i></a></li>-->
           <!--</ul>-->
           <p class="reciter-hero__bio">{{ reciter.description }}</p>
+          <v-btn @click="goToEditReciter">Update Reciter</v-btn>
         </v-card>
       </div>
     </div>
@@ -86,6 +87,10 @@ export default {
       this.reciter = reciter || null;
       this.tracks = tracks || [];
       this.albums = albums || [];
+    },
+    goToEditReciter() {
+      const goToUrl = `/reciters/${this.reciter.slug}/update`;
+      this.$router.push(goToUrl);
     },
   },
   beforeRouteEnter(to, from, next) {

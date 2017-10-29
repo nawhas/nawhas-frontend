@@ -27,7 +27,11 @@
                 </v-layout>
                 <v-layout row>
                     <v-flex>
-                        <input type="file" @change="onFileChange">
+                        <input
+                          type="file"
+                          @change="onFileChange"
+                        >
+                        <img v-if="!this.reciter.updatedAvatar" :src="this.reciter.avatar" height="100"width="100">
                     </v-flex>
                 </v-layout>
                 <v-layout row>
@@ -42,6 +46,7 @@
 
 <script>
   import client from '@/services/client';
+  import {getReciter} from '../../../services/reciters';
 
   export default {
     name: 'Reciter-Create',
@@ -50,19 +55,33 @@
         const form = new FormData();
         form.append('name', this.reciter.name);
         form.append('avatar', this.reciter.avatar);
+        if (this.reciter.updatedAvatar) {
+          form.append('updatedAvatar', this.reciter.updatedAvatar);
+        }
         form.append('description', this.reciter.description);
-        client.post('/v1/reciters', form).then(() => {
+        client.post(`/v1/reciters/${this.reciter.slug}`, form).then(() => {
           this.$router.push('/reciters');
         });
       },
       onFileChange(e) {
-        this.reciter.avatar = e.target.files[0];
+        this.reciter.updatedAvatar = e.target.files[0];
       },
+      setData(reciter) {
+        this.reciter.name = reciter.name || null;
+        this.reciter.slug = reciter.slug || null;
+        this.reciter.description = reciter.description || null;
+        this.reciter.avatar = reciter.avatar || null;
+      }
     },
     data() {
       return {
-        reciter: {'name': null, 'avatar': null, 'description': null},
+        reciter: {'name': null, 'slug': null, 'avatar': null, 'description': null, 'updatedAvatar': null},
       };
     },
+    created() {
+      getReciter(this.$route.params.reciter).then(response => {
+        this.setData(response.data);
+      });
+    }
   };
 </script>
