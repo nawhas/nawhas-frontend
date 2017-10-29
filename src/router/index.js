@@ -22,6 +22,11 @@ const router = new Router({
           component: require('@/views/public/reciters/Index'),
         },
         {
+          path: 'reciters/create',
+          name: 'Reciter Create',
+          component: require('@/views/public/reciters/Create'),
+        },
+        {
           path: 'reciters/:reciter',
           name: 'Reciter Profile',
           component: require('@/views/public/reciters/Reciter'),

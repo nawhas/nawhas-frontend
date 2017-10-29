@@ -12,6 +12,7 @@
     </section>
     <section class="page-section" id="all-reciters-section">
       <h5>All Reciters</h5>
+      <v-btn primary flat v-if="this.$store.getters['auth/isAdmin']" @click="createNewReciter">Create New Reciter</v-btn>
       <v-card>
         <v-container class="pa-0" fluid>
           <v-layout row wrap>
@@ -39,7 +40,10 @@ export default {
     setData({reciters, popularReciters}) {
       this.reciters = reciters;
       this.popularReciters = popularReciters;
-    }
+    },
+    createNewReciter() {
+      this.$router.push('/reciters/create');
+    },
   },
   beforeRouteEnter(to, from, next) {
     Promise.all([

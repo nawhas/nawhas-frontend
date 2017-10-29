@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-btn @click='checkLogin'>Check Login</v-btn>
     <hero-banner :background="require('../../assets/imam-hussain-header.jpg')" class="mb-4">
       <hero-quote author="Imam Jafar Sadiq (a.s.)">
         The murder of Hussain has lit a fire in the hearts of the believers which will never extinguish.
@@ -48,6 +49,9 @@ export default {
       this.reciters = reciters;
       this.tracks = tracks;
     },
+    checkLogin() {
+      console.log(this.$store.getters['auth/isAdmin']);
+    }
   },
   beforeRouteEnter(to, from, next) {
     Promise.all([
