@@ -25,7 +25,11 @@
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
-                <file-upload></file-upload>
+                <v-layout row>
+                    <v-flex>
+                        <input type="file" @change="onFileChange">
+                    </v-flex>
+                </v-layout>
                 <v-layout row>
                     <v-flex xs12 sm1 offset-sm11>
                         <v-btn primary @click="uploadForm">Submit</v-btn>
@@ -38,18 +42,23 @@
 
 <script>
   import client from '@/services/client';
-  import FileUpload from '@/components/FileUpload';
 
   export default {
     name: 'Reciter-Create',
-    components: {
-      FileUpload,
-    },
     methods: {
       uploadForm() {
-        client.post('/v1/reciters', this.reciter).then((response) => {
-          console.log(response);
+        const form = new FormData();
+
+        form.append('name', this.reciter.name);
+        form.append('avatar', this.reciter.avatar);
+        form.append('description', this.reciter.description);
+        client.post('/v1/reciters', form).then(() => {
+          this.$router.push('/reciters');
         });
+      },
+      onFileChange(e) {
+        this.reciter.avatar = e.target.files[0];
+        console.log(this.reciter.avatar);
       },
     },
     data() {
