@@ -3,25 +3,25 @@
         <section>
             <v-layout row>
                 <v-flex xs12 sm6 offset-sm3>
-                    <h3>Create new Reciter</h3>
+                    <h3>Edit Reciter {{ this.reciter.name }}</h3>
                 </v-flex>
             </v-layout>
             <v-form enctype="multipart/form-data">
                 <v-layout row>
                     <v-flex>
                         <v-text-field
-                                label="Reciter Name"
-                                v-model="reciter.name"
-                                required
+                          label="Reciter Name"
+                          v-model="reciter.name"
+                          required
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
                 <v-layout row>
                     <v-flex>
                         <v-text-field
-                                label="Reciter description"
-                                v-model="reciter.description"
-                                multi-line
+                          label="Reciter description"
+                          v-model="reciter.description"
+                          multi-line
                         ></v-text-field>
                     </v-flex>
                 </v-layout>

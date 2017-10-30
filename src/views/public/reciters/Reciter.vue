@@ -36,6 +36,7 @@
     </section>
     <section class="page-section" id="all-reciters-section">
       <h5>Albums</h5>
+      <v-btn primary flat v-if="this.$store.getters['auth/isAdmin']" @click="createAlbum">Create New Album</v-btn>
       <template v-for="album in albums">
         <album v-bind="album" v-bind:key="album.id"></album>
       </template>
@@ -89,8 +90,10 @@ export default {
       this.albums = albums || [];
     },
     goToEditReciter() {
-      const goToUrl = `/reciters/${this.reciter.slug}/update`;
-      this.$router.push(goToUrl);
+      this.$router.push(`/reciters/${this.reciter.slug}/update`);
+    },
+    createAlbum() {
+      this.$router.push(`/reciters/${this.reciter.slug}/albums/create`);
     },
   },
   beforeRouteEnter(to, from, next) {
