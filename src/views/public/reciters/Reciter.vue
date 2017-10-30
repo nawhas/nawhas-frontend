@@ -38,7 +38,7 @@
       <h5>Albums</h5>
       <v-btn primary flat v-if="this.$store.getters['auth/isAdmin']" @click="createAlbum">Create New Album</v-btn>
       <template v-for="album in albums">
-        <album v-bind="album" v-bind:key="album.id"></album>
+        <album v-bind="album" :reciterSlug="reciter.slug" v-bind:key="album.id"></album>
       </template>
     </section>
   </div>

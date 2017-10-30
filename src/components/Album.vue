@@ -8,6 +8,12 @@
         <h5 class="album__title">{{ name }}</h5>
         <h6 class="album__release-date"><strong>{{ year }}</strong> &bull; {{ tracks.data.length }} tracks</h6>
       </div>
+      <v-btn
+        flat
+        primary
+        v-if="this.$store.getters['auth/isAdmin']"
+        @click="goToEditAlbum"
+      >Edit Album</v-btn>
     </div>
     <v-data-table
         :headers="headers"
@@ -30,7 +36,7 @@ import Vibrant from 'node-vibrant';
 
 export default {
   name: 'album',
-  props: ['name', 'album', 'year', 'tracks', 'artwork'],
+  props: ['name', 'album', 'year', 'tracks', 'artwork', 'reciterSlug'],
   mounted() {
     this.setBackgroundFromImage();
   },
@@ -48,6 +54,9 @@ export default {
     goToTrack(track) {
       this.$router.push(`/reciters/${track.reciter.slug}/albums/${this.year}/tracks/${track.slug}`);
     },
+    goToEditAlbum() {
+      this.$router.push(`/reciters/${this.reciterSlug}/albums/create`);
+    }
   },
   data() {
     return {
