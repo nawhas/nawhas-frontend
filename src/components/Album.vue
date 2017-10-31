@@ -55,7 +55,7 @@ export default {
       this.$router.push(`/reciters/${track.reciter.slug}/albums/${this.year}/tracks/${track.slug}`);
     },
     goToEditAlbum() {
-      this.$router.push(`/reciters/${this.reciterSlug}/albums/create`);
+      this.$router.push(`/reciters/${this.reciterSlug}/albums/${this.year}/update`);
     }
   },
   data() {

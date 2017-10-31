@@ -42,6 +42,11 @@ const router = new Router({
           component: require('@/views/public/reciters/albums/Create'),
         },
         {
+          path: 'reciters/:reciter/albums/:album/update',
+          name: 'Album Update',
+          component: require('@/views/public/reciters/albums/Update'),
+        },
+        {
           path: 'reciters/:reciter/albums/:album/tracks/:track',
           name: 'Track Page',
           component: require('@/views/public/reciters/Track'),
