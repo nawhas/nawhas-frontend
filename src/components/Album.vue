@@ -14,6 +14,11 @@
         v-if="this.$store.getters['auth/isAdmin']"
         @click="goToEditAlbum"
       >Edit Album</v-btn>
+      <v-btn
+        flat
+        primary
+        @click="goToCreateTracks"
+      >Add Track</v-btn>
     </div>
     <v-data-table
         :headers="headers"
@@ -56,6 +61,9 @@ export default {
     },
     goToEditAlbum() {
       this.$router.push(`/reciters/${this.reciterSlug}/albums/${this.year}/update`);
+    },
+    goToCreateTracks() {
+      this.$router.push(`/reciters/${this.reciterSlug}/albums/${this.year}/tracks/create`);
     }
   },
   data() {
