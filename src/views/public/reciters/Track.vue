@@ -44,21 +44,19 @@
           </v-flex>
           <v-flex md4>
             <v-card class="track-page-content__card track-page-content__card--audio">
-              <v-card-title>Audio</v-card-title>
-              <v-card-text>
-                <a-player autoplay :music="{
+              Audio
+              <a-player autoplay :mutex="true" :music="{
                     title: track.name,
                     author: track.reciter.name,
                     url: track.audio,
                     pic: track.album.artwork,
                   }"></a-player>
-              </v-card-text>
             </v-card>
             <v-card class="track-page-content__card track-page-content__card--audio">
-              <v-card-title>Video</v-card-title>
+              >Video
             </v-card>
             <v-card class="track-page-content__card track-page-content__card--album">
-              <v-card-title>More</v-card-title>
+              More
             </v-card>
           </v-flex>
         </v-layout>
@@ -98,7 +96,6 @@
       setTrack(track) {
         this.track = track;
         this.setBackgroundFromImage();
-        console.log(this.track);
       },
       setBackgroundFromImage() {
         if (!this.track) {
