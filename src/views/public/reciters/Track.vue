@@ -33,14 +33,33 @@
             <v-card class="track-page-content__card track-page-content__card--lyrics lyrics">
               <div class="lyrics__content" v-if="track.lyrics" v-bind="track.lyrics"></div>
               <div class="lyrics__empty" v-else>
+                <v-btn
+                  flat
+                  v-if="this.$store.getters['auth/isAdmin']"
+                  @click="goToAddTracks"
+                >Add Lyric</v-btn>
                 <div class="lyrics__empty-message">We don't have a write-up for this nawha yet.</div>
               </div>
             </v-card>
           </v-flex>
           <v-flex md4>
-            <v-card class="track-page-content__card track-page-content__card--audio">Audio</v-card>
-            <v-card class="track-page-content__card track-page-content__card--audio">Video</v-card>
-            <v-card class="track-page-content__card track-page-content__card--album">More</v-card>
+            <v-card class="track-page-content__card track-page-content__card--audio">
+              <v-card-title>Audio</v-card-title>
+              <v-card-text>
+                <a-player autoplay :music="{
+                    title: track.name,
+                    author: track.reciter.name,
+                    url: track.audio,
+                    pic: track.album.artwork,
+                  }"></a-player>
+              </v-card-text>
+            </v-card>
+            <v-card class="track-page-content__card track-page-content__card--audio">
+              <v-card-title>Video</v-card-title>
+            </v-card>
+            <v-card class="track-page-content__card track-page-content__card--album">
+              <v-card-title>More</v-card-title>
+            </v-card>
           </v-flex>
         </v-layout>
       </v-container>
@@ -49,60 +68,65 @@
 </template>
 
 <script>
-import Vibrant from 'node-vibrant';
-import {getTrack} from '../../../services/tracks';
-import HeroBanner from '../../../components/HeroBanner';
-import ReciterCard from '../../../components/ReciterCard';
-import TrackCard from '../../../components/TrackCard';
-import Album from '../../../components/Album';
+  import VueAplayer from 'vue-aplayer';
+  import Vibrant from 'node-vibrant';
+  import {getTrack} from '../../../services/tracks';
+  import HeroBanner from '../../../components/HeroBanner';
+  import ReciterCard from '../../../components/ReciterCard';
+  import TrackCard from '../../../components/TrackCard';
+  import Album from '../../../components/Album';
 
-export default {
-  name: 'TrackPage',
-  components: {
-    HeroBanner,
-    TrackCard,
-    ReciterCard,
-    Album,
-  },
-  data() {
-    return {
-      track: null,
-      background: '#222',
-      textColor: '#fff',
-    };
-  },
-  methods: {
-    setTrack(track) {
-      this.track = track;
-      this.setBackgroundFromImage();
+  export default {
+    name: 'TrackPage',
+    components: {
+      HeroBanner,
+      TrackCard,
+      ReciterCard,
+      Album,
+      'a-player': VueAplayer
     },
-    setBackgroundFromImage() {
-      if (!this.track) {
-        return;
-      }
-      Vibrant.from(this.track.album.artwork).getPalette().then((palette) => {
-        const swatch = palette.DarkMuted;
-        if (!swatch) {
+    data() {
+      return {
+        track: null,
+        background: '#222',
+        textColor: '#fff',
+      };
+    },
+    methods: {
+      goToAddTracks() {
+      },
+      setTrack(track) {
+        this.track = track;
+        this.setBackgroundFromImage();
+        console.log(this.track);
+      },
+      setBackgroundFromImage() {
+        if (!this.track) {
           return;
         }
-        this.background = swatch.getHex();
-        this.textColor = swatch.getBodyTextColor();
+        Vibrant.from(this.track.album.artwork).getPalette().then((palette) => {
+          const swatch = palette.DarkMuted;
+          if (!swatch) {
+            return;
+          }
+          this.background = swatch.getHex();
+          this.textColor = swatch.getBodyTextColor();
+        });
+      },
+    },
+    beforeRouteEnter(to, from, next) {
+      getTrack(to.params.reciter, to.params.album, to.params.track).then((response) => {
+        next((vm) => vm.setTrack(response.data));
       });
     },
-  },
-  beforeRouteEnter(to, from, next) {
-    getTrack(to.params.reciter, to.params.album, to.params.track).then((response) => {
-      next((vm) => vm.setTrack(response.data));
-    });
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.setTrack(null);
-    getTrack(to.params.reciter, to.params.album, to.params.track).then((response) => {
-      this.setTrack(response.data);
-      next();
-    });
-  },
-};
+    beforeRouteUpdate(to, from, next) {
+      this.setTrack(null);
+      getTrack(to.params.reciter, to.params.album, to.params.track).then((response) => {
+        this.setTrack(response.data);
+        next();
+      });
+    },
+  };
 </script>
 
 <style lang="stylus" scoped>
