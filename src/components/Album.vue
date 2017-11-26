@@ -17,6 +17,7 @@
       <v-btn
         flat
         primary
+        v-if="this.$store.getters['auth/isAdmin']"
         @click="goToCreateTracks"
       >Add Track</v-btn>
     </div>

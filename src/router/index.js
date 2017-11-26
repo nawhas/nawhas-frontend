@@ -57,6 +57,11 @@ const router = new Router({
           component: require('@/views/public/reciters/Track'),
         },
         {
+          path: 'reciters/:reciter/albums/:album/tracks/:track/lyrics/create',
+          name: 'Lyric Create',
+          component: require('@/views/public/reciters/albums/tracks/lyrics/Create'),
+        },
+        {
           path: 'topics',
           name: 'Topics',
           component: require('@/views/public/Topics'),

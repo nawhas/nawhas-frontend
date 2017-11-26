@@ -11,7 +11,7 @@
           <div class="track-hero__text">
             <h4 class="track-hero__title">{{ track.name }}</h4>
             <div class="track-hero__meta">
-              <p>{{ track.reciter.name }}</p>
+              <p>{{ track.album.reciter.name }}</p>
               <p>{{ track.album.year }} &bull; {{ track.album.name }}</p>
             </div>
           </div>
@@ -31,7 +31,7 @@
         <v-layout row>
           <v-flex md8>
             <v-card class="track-page-content__card track-page-content__card--lyrics lyrics">
-              <div class="lyrics__content" v-if="track.lyrics" v-bind="track.lyrics"></div>
+              <div class="lyrics__content" v-if="track.lyrics" v-bind="track.lyrics">{{ track.lyrics }}</div>
               <div class="lyrics__empty" v-else>
                 <v-btn
                   flat
@@ -45,7 +45,7 @@
           <v-flex md4>
             <v-card class="track-page-content__card track-page-content__card--audio">
               Audio
-              <a-player autoplay :mutex="true" :music="{
+              <a-player v-if="track.audio" :mutex="true" :music="{
                     title: track.name,
                     author: track.reciter.name,
                     url: track.audio,
@@ -92,6 +92,7 @@
     },
     methods: {
       goToAddTracks() {
+        this.$router.push(`/reciters/${this.track.reciter.slug}/albums/${this.track.album.year}/tracks/${this.track.slug}/lyrics/create`);
       },
       setTrack(track) {
         this.track = track;
