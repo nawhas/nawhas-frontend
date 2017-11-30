@@ -53,7 +53,7 @@
                   }"></a-player>
             </v-card>
             <v-card class="track-page-content__card track-page-content__card--audio">
-              >Video
+              Video
             </v-card>
             <v-card class="track-page-content__card track-page-content__card--album">
               More
