@@ -18,15 +18,6 @@
         </v-layout>
         <v-layout row>
           <v-flex>
-            <v-text-field
-              label="Album year"
-              v-model="album.year"
-              required
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex>
             <input
               type="file"
               @change="onFileChange"
@@ -57,7 +48,6 @@
         if (this.album.updatedArtwork) {
           form.append('updatedArtwork', this.album.updatedArtwork);
         }
-        form.append('year', this.album.year);
         client.post(`/v1/reciters/${this.reciter.slug}/albums/${this.album.year}`, form).then(() => {
           this.$router.push(`/reciters/${this.reciter.slug}`);
         });
@@ -68,14 +58,13 @@
       setData(data) {
         this.album.name = data.name;
         this.album.artwork = data.artwork;
-        this.album.year = data.year;
         this.reciter = data.reciter;
       },
     },
     data() {
       return {
         reciter: {},
-        album: {'name': null, 'artwork': null, 'year': null, 'updatedArtwork': null},
+        album: {'name': null, 'artwork': null, 'updatedArtwork': null},
       };
     },
     created() {
