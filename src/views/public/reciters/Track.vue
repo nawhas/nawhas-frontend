@@ -29,7 +29,7 @@
     <div class="track-page-content" v-if="track">
       <v-container grid-list-xl>
         <v-layout row>
-          <v-flex md6>
+          <v-flex md7>
             <v-card class="track-page-content__card track-page-content__card--lyrics lyrics">
               <div class="lyrics__content" v-if="track.lyrics" v-bind="track.lyrics">{{ track.lyrics }}</div>
               <div class="lyrics__empty" v-else>
@@ -42,20 +42,25 @@
               </div>
             </v-card>
           </v-flex>
-          <v-flex md6>
+          <v-flex md5>
             <v-card class="track-page-content__card track-page-content__card--audio">
               Audio
-              <a-player v-if="track.audio" :mutex="true" :music="{
+              <section v-if="track.audio">
+                <a-player v-if="track.audio" :mutex="true" :music="{
                     title: track.name,
                     author: track.reciter.name,
                     url: track.audio,
                     pic: track.album.artwork,
                   }"></a-player>
+              </section>
+              <section v-else>
+                <p>There is no track available yet</p>
+              </section>
             </v-card>
             <v-card class="track-page-content__card track-page-content__card--audio">
               Video
               <section v-if="track.video">
-                <youtube player-width="100%" :video-id="videoId"></youtube>
+                <youtube player-width="100%" player-height="100%" :video-id="videoId"></youtube>
               </section>
               <section v-else>
                 <p>There is no video available</p>
@@ -104,8 +109,13 @@
       },
       setTrack(track) {
         this.track = track;
-        this.videoId = this.$youtube.getIdFromURL(track.video);
-        this.startTime = this.$youtube.getTimeFromURL(track.video);
+        if (track.video) {
+          this.videoId = this.$youtube.getIdFromURL(track.video);
+          this.startTime = this.$youtube.getTimeFromURL(track.video);
+        } else {
+          this.videoId = null;
+          this.startTime = null;
+        }
         this.setBackgroundFromImage();
       },
       setBackgroundFromImage() {
