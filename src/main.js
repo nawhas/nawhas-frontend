@@ -4,6 +4,7 @@ import Vuetify from 'vuetify';
 import axios from 'axios';
 import {sync} from 'vuex-router-sync';
 import VueProgressBar from 'vue-progressbar';
+import VueYouTubeEmbed from 'vue-youtube-embed';
 import App from './App';
 import router from './router';
 import store from './store';
@@ -25,6 +26,7 @@ Vue.use(VueProgressBar, {
 Vue.config.productionTip = false;
 Vue.http = Vue.prototype.$http = axios;
 Vue.use(Vuetify);
+Vue.use(VueYouTubeEmbed);
 
 sync(store, router);
 

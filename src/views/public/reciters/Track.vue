@@ -29,7 +29,7 @@
     <div class="track-page-content" v-if="track">
       <v-container grid-list-xl>
         <v-layout row>
-          <v-flex md8>
+          <v-flex md6>
             <v-card class="track-page-content__card track-page-content__card--lyrics lyrics">
               <div class="lyrics__content" v-if="track.lyrics" v-bind="track.lyrics">{{ track.lyrics }}</div>
               <div class="lyrics__empty" v-else>
@@ -42,7 +42,7 @@
               </div>
             </v-card>
           </v-flex>
-          <v-flex md4>
+          <v-flex md6>
             <v-card class="track-page-content__card track-page-content__card--audio">
               Audio
               <a-player v-if="track.audio" :mutex="true" :music="{
@@ -54,6 +54,12 @@
             </v-card>
             <v-card class="track-page-content__card track-page-content__card--audio">
               Video
+              <section v-if="track.video">
+                <youtube player-width="100%" :video-id="videoId"></youtube>
+              </section>
+              <section v-else>
+                <p>There is no video available</p>
+              </section>
             </v-card>
             <v-card class="track-page-content__card track-page-content__card--album">
               More
@@ -88,6 +94,8 @@
         track: null,
         background: '#222',
         textColor: '#fff',
+        videoId: '',
+        startTime: ''
       };
     },
     methods: {
@@ -96,6 +104,8 @@
       },
       setTrack(track) {
         this.track = track;
+        this.videoId = this.$youtube.getIdFromURL(track.video);
+        this.startTime = this.$youtube.getTimeFromURL(track.video);
         this.setBackgroundFromImage();
       },
       setBackgroundFromImage() {

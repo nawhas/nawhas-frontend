@@ -20,7 +20,7 @@
           <v-flex>
             <v-text-field
               label="Track Number"
-              v-model="track.number"
+              v-model="track.trackNumber"
               required
             ></v-text-field>
           </v-flex>
@@ -37,12 +37,10 @@
         </v-layout>
         <v-layout row>
           <v-flex>
-            Video File
-            <input
-              type="file"
-              @change="onFileChange"
-              name="video"
-            >
+              <v-text-field
+                      label="YouTube Link To VIdeo"
+                      v-model="track.video"
+              ></v-text-field>
           </v-flex>
         </v-layout>
         <v-layout row>
@@ -63,15 +61,15 @@
     methods: {
       uploadForm() {
         const form = new FormData();
-        form.append('name', this.album.name);
-        form.append('artwork', this.album.artwork);
-        if (this.album.updatedArtwork) {
-          form.append('updatedArtwork', this.album.updatedArtwork);
-        }
-        form.append('year', this.album.year);
-        client.post(`/v1/reciters/${this.reciter.slug}/albums/${this.album.year}`, form).then(() => {
-          this.$router.push(`/reciters/${this.reciter.slug}`);
-        });
+        form.append('name', this.track.name);
+        form.append('audio', this.track.audio);
+        form.append('video', this.track.video);
+        form.append('number', this.track.trackNumber);
+        form.append('language', this.track.language);
+        client.post(`/v1/reciters/${this.reciter.slug}/albums/${this.album.year}/tracks`, form)
+          .then(() => {
+            this.$router.push(`/reciters/${this.reciter.slug}`);
+          });
       },
       onFileChange(e) {
         if (e.target.name === 'audio') {
