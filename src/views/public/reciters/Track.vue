@@ -31,7 +31,7 @@
         <v-layout row>
           <v-flex md7>
             <v-card class="track-page-content__card track-page-content__card--lyrics lyrics">
-              <div class="lyrics__content" v-if="track.lyrics" v-bind="track.lyrics">{{ track.lyrics }}</div>
+              <div class="lyrics__content" v-if="track.lyrics" v-html="track.lyrics"></div>
               <div class="lyrics__empty" v-else>
                 <v-btn
                   flat
