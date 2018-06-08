@@ -14,6 +14,12 @@
               <p>{{ track.album.reciter.name }}</p>
               <p>{{ track.album.year }} &bull; {{ track.album.name }}</p>
             </div>
+            <v-btn v-if="this.$store.getters['auth/isAdmin']"
+                   primary
+                   @click="goToEditTrack()"
+            >
+              Edit Track
+            </v-btn>
           </div>
         </div>
         <div class="track-hero__actions">
@@ -31,7 +37,12 @@
         <v-layout row>
           <v-flex md7>
             <v-card class="track-page-content__card track-page-content__card--lyrics lyrics">
-              <div class="lyrics__content" v-if="track.lyrics" v-html="track.lyrics"></div>
+              <div class="lyrics__content" v-if="track.lyrics">
+                <v-btn v-if="this.$store.getters['auth/isAdmin']">
+                  Edit Lyrics
+                </v-btn>
+                <div v-html="track.lyrics"></div>
+              </div>
               <div class="lyrics__empty" v-else>
                 <v-btn
                   flat
@@ -106,6 +117,9 @@
     methods: {
       goToAddTracks() {
         this.$router.push(`/reciters/${this.track.reciter.slug}/albums/${this.track.album.year}/tracks/${this.track.slug}/lyrics/create`);
+      },
+      goToEditTrack() {
+        this.$router.push({ name: 'Track-Update', params: { reciter: this.track.reciter.slug, album: this.track.album.year, track: this.track.slug } });
       },
       setTrack(track) {
         this.track = track;

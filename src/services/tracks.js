@@ -29,7 +29,21 @@ export function getTrack(reciter, album, id, options = {}) {
   return client.get(`/v1/reciters/${reciter}/albums/${album}/tracks/${id}`, options);
 }
 
+/**
+ * Update a Track
+ * @param {string|int} reciter - Reciter ID
+ * @param {string|int} album - Album ID
+ * @param {string|int} id - Track ID
+ * @param {object} trackData
+ *
+ * @returns {Promise}
+ */
+export function updateTrack(reciter, album, id, trackData) {
+  return client.post(`/v1/reciters/${reciter}/albums/${album}/tracks/${id}`, trackData);
+}
+
 export default {
   getTracks,
   getTrack,
+  updateTrack,
 };

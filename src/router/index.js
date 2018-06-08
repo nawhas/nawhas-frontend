@@ -53,13 +53,23 @@ const router = new Router({
         },
         {
           path: 'reciters/:reciter/albums/:album/tracks/:track',
-          name: 'Track Page',
+          name: 'Track-Page',
           component: require('@/views/public/reciters/Track'),
+        },
+        {
+          path: 'reciters/:reciter/albums/:album/tracks/:track/update',
+          name: 'Track-Update',
+          component: require('@/views/public/reciters/albums/tracks/Update')
         },
         {
           path: 'reciters/:reciter/albums/:album/tracks/:track/lyrics/create',
           name: 'Lyric Create',
           component: require('@/views/public/reciters/albums/tracks/lyrics/Create'),
+        },
+        {
+          path: 'reciters/:reciter/albums/:album/tracks/:track/lyrics/update',
+          name: 'Lyric Update',
+          component: require('@/views/public/reciters/albums/tracks/lyrics/Update')
         },
         {
           path: 'topics',
