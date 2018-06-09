@@ -59,12 +59,14 @@
             <v-card class="track-page-content__card track-page-content__card--audio">
               Audio
               <section v-if="track.audio">
-                <a-player v-if="track.audio" :mutex="true" :music="{
-                    title: track.name,
-                    author: track.reciter.name,
-                    url: track.audio,
-                    pic: track.album.artwork,
-                  }"></a-player>
+                <aplayer
+                         :music="{
+                         title: track.name,
+                         artist: track.reciter.name,
+                         src: track.audio,
+                         pic: track.album.artwork
+                         }"
+                />
               </section>
               <section v-else>
                 <p>There is no track available yet</p>
@@ -90,7 +92,7 @@
 </template>
 
 <script>
-  import VueAplayer from 'vue-aplayer';
+  import Aplayer from 'vue-aplayer';
   import Vibrant from 'node-vibrant';
   import {getTrack} from '../../../services/tracks';
   import HeroBanner from '../../../components/HeroBanner';
@@ -105,7 +107,7 @@
       TrackCard,
       ReciterCard,
       Album,
-      'a-player': VueAplayer
+      Aplayer
     },
     data() {
       return {
