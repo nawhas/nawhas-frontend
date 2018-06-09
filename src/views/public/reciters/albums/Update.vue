@@ -48,7 +48,6 @@
         if (this.album.updatedArtwork) {
           form.append('updatedArtwork', this.album.updatedArtwork);
         }
-        console.log(this.album);
         client.post(`/v1/reciters/${this.reciter.slug}/albums/${this.album.year}`, form).then(() => {
           this.$router.push(`/reciters/${this.reciter.slug}`);
         });
