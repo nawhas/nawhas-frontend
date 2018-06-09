@@ -4,7 +4,7 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -19,7 +19,57 @@ export default new Router({
         {
           path: 'reciters',
           name: 'Reciters',
-          component: require('@/views/public/Reciters'),
+          component: require('@/views/public/reciters/Index'),
+        },
+        {
+          path: 'reciters/create',
+          name: 'Reciter Create',
+          component: require('@/views/public/reciters/Create'),
+        },
+        {
+          path: 'reciters/:reciter',
+          name: 'Reciter Profile',
+          component: require('@/views/public/reciters/Reciter'),
+        },
+        {
+          path: 'reciters/:reciter/update',
+          name: 'Reciter Update',
+          component: require('@/views/public/reciters/Update'),
+        },
+        {
+          path: 'reciters/:reciter/albums/create',
+          name: 'Album Create',
+          component: require('@/views/public/reciters/albums/Create'),
+        },
+        {
+          path: 'reciters/:reciter/albums/:album/update',
+          name: 'Album Update',
+          component: require('@/views/public/reciters/albums/Update'),
+        },
+        {
+          path: 'reciters/:reciter/albums/:album/tracks/create',
+          name: 'Track Create',
+          component: require('@/views/public/reciters/albums/tracks/Create'),
+        },
+        {
+          path: 'reciters/:reciter/albums/:album/tracks/:track',
+          name: 'Track-Page',
+          component: require('@/views/public/reciters/Track'),
+        },
+        {
+          path: 'reciters/:reciter/albums/:album/tracks/:track/update',
+          name: 'Track-Update',
+          component: require('@/views/public/reciters/albums/tracks/Update')
+        },
+        {
+          path: 'reciters/:reciter/albums/:album/tracks/:track/lyrics/create',
+          name: 'Lyric Create',
+          component: require('@/views/public/reciters/albums/tracks/lyrics/Create'),
+        },
+        {
+          path: 'reciters/:reciter/albums/:album/tracks/:track/lyrics/update',
+          name: 'Lyric-Update',
+          component: require('@/views/public/reciters/albums/tracks/lyrics/Update')
         },
         {
           path: 'topics',
@@ -76,3 +126,9 @@ export default new Router({
     }
   ],
 });
+
+router.afterEach(() => {
+  window.scrollTo(0, 0);
+});
+
+export default router;

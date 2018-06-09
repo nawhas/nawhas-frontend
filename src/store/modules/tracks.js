@@ -2,6 +2,7 @@ import client from '@/services/client';
 
 const state = {
   collection: [],
+  item: [],
   loaded: false,
   pending: false
 };
@@ -17,6 +18,11 @@ const mutations = {
   },
   FETCH_FAILURE(state) {
     state.pending = false;
+  },
+  FETCH_ITEM(state, payload) {
+    state.pending = false;
+    state.loaded = true;
+    state.item = payload.item;
   }
 };
 
@@ -28,6 +34,15 @@ const actions = {
         collection: response.data.data
       });
     });
+  },
+  fetchTrack({commit}, payload) {
+    commit('FETCH');
+    client.get(`reciters/${payload.reciter}/albums/${payload.album}/tracks/${payload.track}`)
+      .then((response) => {
+        commit('FETCH_ITEM', {
+          item: response.data.data
+        });
+      });
   }
 };
 

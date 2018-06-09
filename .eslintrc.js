@@ -45,5 +45,7 @@ module.exports = {
     "import/no-named-as-default-member": 0,
     "quote-props": 0,
     "dot-notation": 0,
+    "spaced-comment": 0,
+    "arrow-parens": 0,
   }
 }
