@@ -39,7 +39,7 @@
   import client from '@/services/client';
 
   export default {
-    name: 'Reciter-Create',
+    name: 'Album-Update',
     methods: {
       uploadForm() {
         const form = new FormData();
@@ -58,13 +58,14 @@
       setData(data) {
         this.album.name = data.name;
         this.album.artwork = data.artwork;
+        this.album.year = data.year;
         this.reciter = data.reciter;
       },
     },
     data() {
       return {
         reciter: {},
-        album: {'name': null, 'artwork': null, 'updatedArtwork': null},
+        album: {'name': null, 'year': null, 'artwork': null, 'updatedArtwork': null},
       };
     },
     created() {
