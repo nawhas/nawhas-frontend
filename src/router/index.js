@@ -68,7 +68,7 @@ const router = new Router({
         },
         {
           path: 'reciters/:reciter/albums/:album/tracks/:track/lyrics/update',
-          name: 'Lyric Update',
+          name: 'Lyric-Update',
           component: require('@/views/public/reciters/albums/tracks/lyrics/Update')
         },
         {

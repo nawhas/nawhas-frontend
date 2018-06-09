@@ -38,7 +38,9 @@
           <v-flex md7>
             <v-card class="track-page-content__card track-page-content__card--lyrics lyrics">
               <div class="lyrics__content" v-if="track.lyrics">
-                <v-btn v-if="this.$store.getters['auth/isAdmin']">
+                <v-btn v-if="this.$store.getters['auth/isAdmin']"
+                       @click="goToEditLyric()"
+                >
                   Edit Lyrics
                 </v-btn>
                 <div v-html="track.lyrics"></div>
@@ -120,6 +122,9 @@
       },
       goToEditTrack() {
         this.$router.push({ name: 'Track-Update', params: { reciter: this.track.reciter.slug, album: this.track.album.year, track: this.track.slug } });
+      },
+      goToEditLyric() {
+        this.$router.push({ name: 'Lyric-Update', params: { reciter: this.track.reciter.slug, album: this.track.album.year, track: this.track.slug } });
       },
       setTrack(track) {
         this.track = track;

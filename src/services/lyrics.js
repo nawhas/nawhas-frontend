@@ -1,0 +1,35 @@
+import client from './client';
+
+/**
+ * Get a single lyric
+ * @param {string|int} reciter - Reciter ID
+ * @param {string|int} album - Album ID
+ * @param {string|int} id - Track ID
+ * @param {object} [options]
+ * @param {int} [options.page]
+ * @param {int} [options.limit]
+ *
+ * @returns {Promise}
+ */
+export function getLyric(reciter, album, id, options = {}) {
+  return client.get(`/v1/reciters/${reciter}/albums/${album}/tracks/${id}/lyrics`, options);
+}
+
+/**
+ * Update a Track
+ * @param {string|int} reciter - Reciter ID
+ * @param {string|int} album - Album ID
+ * @param {string|int}  track - Track ID or Slug
+ * @param {string|int}  lyric - Lyric ID
+ * @param data
+ *
+ * @returns {Promise}
+ */
+export function updateLyric(reciter, album, track, lyric, data) {
+  return client.post(`/v1/reciters/${reciter}/albums/${album}/tracks/${track}/lyrics/${lyric}`, data);
+}
+
+export default {
+  getLyric,
+  updateLyric
+};
