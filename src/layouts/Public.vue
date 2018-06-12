@@ -70,7 +70,8 @@ export default {
     navigation() {
       // return filtered nav list based on role
       const items = [];
-      const role = this.$store.getters['auth/isAdmin'];
+      const role = this.$store.getters['auth/userRole'];
+      console.log(role);
 
       this.items.forEach((group) => {
         if (group.role && group.role !== role) {
@@ -117,12 +118,14 @@ export default {
               title: 'Topics',
               exact: false,
               to: '/topics',
+              role: 'admin'
             },
             {
               icon: 'library_books',
               title: 'My Library',
               exact: false,
               to: '/library',
+              role: 'admin'
             }
           ]
         },
@@ -134,18 +137,21 @@ export default {
               title: 'Top Charts',
               exact: true,
               to: '/charts',
+              role: 'admin'
             },
             {
               icon: 'whatshot',
               title: 'Trending',
               exact: false,
               to: '/trending',
+              role: 'admin'
             },
             {
               icon: 'date_range',
               title: 'New Releases',
               exact: false,
               to: '/new-releases',
+              role: 'admin'
             }
           ]
         },

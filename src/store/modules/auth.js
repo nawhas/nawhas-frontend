@@ -77,6 +77,9 @@ const getters = {
   },
   isAdmin(state) {
     return state.user && state.user.role === 'admin';
+  },
+  userRole(state) {
+    return state.user.role
   }
 };
 
