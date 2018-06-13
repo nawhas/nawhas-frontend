@@ -73,7 +73,7 @@ export default {
       const role = this.$store.getters['auth/userRole'];
 
       this.items.forEach((group) => {
-        if (role.role) {
+        if (role) {
           if (group.role && group.role !== role.role) {
             return;
           }
