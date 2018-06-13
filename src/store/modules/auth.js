@@ -79,7 +79,11 @@ const getters = {
     return state.user && state.user.role === 'admin';
   },
   userRole(state) {
-    return state.user;
+    if (state.user) {
+      return state.user.role;
+    } else {
+      return null;
+    }
   }
 };
 
