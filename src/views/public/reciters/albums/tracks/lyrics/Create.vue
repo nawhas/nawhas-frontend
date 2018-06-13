@@ -50,7 +50,7 @@
         form.append('text', this.lyric.text);
         form.append('language', 'en');
         form.append('track_id', this.track.id);
-        client.post(`/v1/reciters/${this.track.album.reciter.slug}/albums/${this.track.album.year}/tracks/${this.track.slug}/lyrics`, form).then(response => {
+        client.post(`/v1/reciters/${this.track.album.reciter.slug}/albums/${this.track.album.year}/tracks/${this.track.slug}/lyrics`, form).then(() => {
           this.$router.push(`/reciters/${this.track.album.reciter.slug}/albums/${this.track.album.year}/tracks/${this.track.slug}`);
         });
       },
