@@ -81,9 +81,8 @@ const getters = {
   userRole(state) {
     if (state.user) {
       return state.user.role;
-    } else {
-      return null;
     }
+    return null;
   }
 };
 
