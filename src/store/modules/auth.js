@@ -19,7 +19,7 @@ const mutations = {
     state.token = token;
   },
   LOGOUT(state) {
-    state.token = 'public';
+    state.token = null;
   },
   FETCH_USER_SUCCESS(state, {user}) {
     state.user = user;
@@ -79,7 +79,7 @@ const getters = {
     return state.user && state.user.role === 'admin';
   },
   userRole(state) {
-    return state.user.role;
+    return state.user;
   }
 };
 
