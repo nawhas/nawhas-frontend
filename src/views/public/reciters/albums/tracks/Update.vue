@@ -69,7 +69,6 @@
   export default {
     name: 'Track-Update',
     created() {
-      console.log();
       getTrack(this.$route.params.reciter, this.$route.params.album, this.$route.params.track)
         .then((response) => {
           this.setData(response.data);

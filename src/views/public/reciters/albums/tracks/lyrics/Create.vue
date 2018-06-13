@@ -51,7 +51,6 @@
         form.append('language', 'en');
         form.append('track_id', this.track.id);
         client.post(`/v1/reciters/${this.track.album.reciter.slug}/albums/${this.track.album.year}/tracks/${this.track.slug}/lyrics`, form).then(response => {
-          console.log(response);
           this.$router.push(`/reciters/${this.track.album.reciter.slug}/albums/${this.track.album.year}/tracks/${this.track.slug}`);
         });
       },
