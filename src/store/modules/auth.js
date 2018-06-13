@@ -19,7 +19,7 @@ const mutations = {
     state.token = token;
   },
   LOGOUT(state) {
-    state.token = null;
+    state.token = 'public';
   },
   FETCH_USER_SUCCESS(state, {user}) {
     state.user = user;
