@@ -71,11 +71,12 @@ export default {
       // return filtered nav list based on role
       const items = [];
       const role = this.$store.getters['auth/userRole'];
-      console.log(role);
 
       this.items.forEach((group) => {
-        if (group.role && group.role !== role) {
-          return;
+        if (role) {
+          if (group.role && group.role !== role) {
+            return;
+          }
         }
 
         const children = [];

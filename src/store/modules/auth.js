@@ -79,7 +79,7 @@ const getters = {
     return state.user && state.user.role === 'admin';
   },
   userRole(state) {
-    return state.user.role
+    return state.user.role;
   }
 };
 
