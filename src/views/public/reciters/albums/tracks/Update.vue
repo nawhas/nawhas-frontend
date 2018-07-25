@@ -26,6 +26,21 @@
       </v-layout>
       <v-layout row>
         <v-flex>
+          <v-select
+            v-model="track.language"
+            :items="languages"
+            item-text="name"
+            item-value="slug"
+            label="Select Nawha Language"
+            persistent-hint
+            return-object
+            single-line
+            required
+          ></v-select>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex>
           Current Track
           <a-player v-if="track.audio" :mutex="true" :music="{
                     title: track.name,
@@ -65,6 +80,7 @@
 <script>
   import VueAplayer from 'vue-aplayer';
   import {getTrack, updateTrack} from '@/services/tracks';
+  import client from '@/services/client';
 
   export default {
     name: 'Track-Update',
@@ -72,6 +88,10 @@
       getTrack(this.$route.params.reciter, this.$route.params.album, this.$route.params.track)
         .then((response) => {
           this.setData(response.data);
+        });
+      client.get('/v1/languages')
+        .then(response => {
+          this.languages = response.data.data;
         });
     },
     data() {
@@ -83,9 +103,11 @@
           slug: null,
           audio: null,
           video: null,
+          language: null,
           trackNumber: null,
           updatedAudio: null
-        }
+        },
+        languages: [],
       };
     },
     components: {
@@ -101,6 +123,7 @@
         form.append('updated_audio', this.track.updatedAudio);
         form.append('video', this.track.video);
         form.append('number', this.track.trackNumber);
+        form.append('language', this.track.language.slug);
         updateTrack(this.reciter.slug, this.album.year, this.track.slug, form)
           .then(() => {
             this.$router.push({ name: 'Track-Page', params: { reciter: this.reciter.slug, album: this.album.year, track: this.track.slug } });
@@ -113,6 +136,7 @@
         this.track.audio = data.audio;
         this.track.trackNumber = data.number;
         this.track.slug = data.slug;
+        this.track.language = data.language.slug;
       }
     },
   };

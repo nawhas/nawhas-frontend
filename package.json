@@ -17,6 +17,7 @@
     "axios": "^0.16.2",
     "babel-polyfill": "^6.23.0",
     "contrast": "^1.0.1",
+    "hls.js": "^0.10.1",
     "node-sass": "^4.5.3",
     "node-vibrant": "^3.0.0-alpha.2",
     "nprogress": "^0.2.0",

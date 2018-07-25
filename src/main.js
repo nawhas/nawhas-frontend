@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import axios from 'axios';
+import InstantSearch from 'vue-instantsearch';
 import {sync} from 'vuex-router-sync';
 import VueProgressBar from 'vue-progressbar';
 import VueYouTubeEmbed from 'vue-youtube-embed';
@@ -27,6 +28,7 @@ Vue.config.productionTip = false;
 Vue.http = Vue.prototype.$http = axios;
 Vue.use(Vuetify);
 Vue.use(VueYouTubeEmbed);
+Vue.use(InstantSearch);
 
 sync(store, router);
 

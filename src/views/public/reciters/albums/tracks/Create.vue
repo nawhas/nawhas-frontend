@@ -27,6 +27,21 @@
         </v-layout>
         <v-layout row>
           <v-flex>
+            <v-select
+              v-model="track.language"
+              :items="languages"
+              item-text="name"
+              item-value="slug"
+              label="Select Nawha Language"
+              persistent-hint
+              return-object
+              single-line
+              required
+            ></v-select>
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex>
             Audio File
             <input
               type="file"
@@ -65,7 +80,7 @@
         form.append('audio', this.track.audio);
         form.append('video', this.track.video);
         form.append('number', this.track.trackNumber);
-        form.append('language', this.track.language);
+        form.append('language', this.track.language.slug);
         client.post(`/v1/reciters/${this.reciter.slug}/albums/${this.album.year}/tracks`, form)
           .then(() => {
             this.$router.push(`/reciters/${this.reciter.slug}`);
@@ -91,13 +106,18 @@
       return {
         reciter: {},
         album: {'id': null, 'name': null, 'artwork': null, 'year': null, 'updatedArtwork': null},
-        track: {'name': null, 'video': null, 'audio': null, 'trackNumber': null, 'language': 'en'},
+        track: {'name': null, 'video': null, 'audio': null, 'trackNumber': null, 'language': null},
+        languages: [],
       };
     },
     created() {
       client.get(`/v1/reciters/${this.$route.params.reciter}/albums/${this.$route.params.album}`).then(response => {
         this.setData(response.data);
       });
+      client.get('/v1/languages')
+        .then(response => {
+          this.languages = response.data.data;
+        });
     }
   };
 </script>
