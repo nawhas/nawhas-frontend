@@ -24,6 +24,7 @@
     "sass-loader": "^6.0.6",
     "vue": "^2.3.3",
     "vue-aplayer": "^1.6.0",
+    "vue-instantsearch": "^1.7.0",
     "vue-nprogress": "^0.1.5",
     "vue-progressbar": "^0.7.3",
     "vue-router": "^2.6.0",
