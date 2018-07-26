@@ -102,7 +102,7 @@
           slug: null,
           audio: null,
           video: null,
-          language: null,
+          language: {},
           trackNumber: null,
           updatedAudio: null
         },
@@ -117,7 +117,17 @@
         this.track.updatedAudio = e.target.files[0];
       },
       uploadForm() {
-        updateTrack(this.reciter.slug, this.album.year, this.track.slug, this.track)
+        const form = new FormData();
+        form.append('updatedAudio', this.track.updatedAudio);
+        form.append('video', this.track.video);
+        form.append('name', this.track.name);
+        form.append('trackNumber', this.track.trackNumber);
+        const formLanguages = [];
+        for (let i = 0; i < this.track.language.length; i++) {
+          formLanguages.push(this.track.language[i].slug);
+        }
+        form.append('language', formLanguages);
+        updateTrack(this.reciter.slug, this.album.year, this.track.slug, form)
           .then(() => {
             this.$router.push({ name: 'Track-Page', params: { reciter: this.reciter.slug, album: this.album.year, track: this.track.slug } });
           });

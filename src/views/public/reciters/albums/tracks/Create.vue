@@ -76,7 +76,17 @@
     name: 'Reciter-Create',
     methods: {
       uploadForm() {
-        client.post(`/v1/reciters/${this.reciter.slug}/albums/${this.album.year}/tracks`, this.track)
+        const form = new FormData();
+        form.append('audio', this.track.audio);
+        form.append('video', this.track.video);
+        form.append('name', this.track.name);
+        form.append('trackNumber', this.track.trackNumber);
+        const formLanguages = [];
+        for (let i = 0; i < this.track.language.length; i++) {
+          formLanguages.push(this.track.language[i].slug);
+        }
+        form.append('language', formLanguages);
+        client.post(`/v1/reciters/${this.reciter.slug}/albums/${this.album.year}/tracks`, form)
           .then(() => {
             this.$router.push(`/reciters/${this.reciter.slug}`);
           });
