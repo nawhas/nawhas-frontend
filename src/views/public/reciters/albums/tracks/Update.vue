@@ -31,11 +31,10 @@
             :items="languages"
             item-text="name"
             item-value="slug"
-            label="Select Nawha Language"
+            label="Select"
             persistent-hint
             return-object
-            single-line
-            required
+            multiple
           ></v-select>
         </v-flex>
       </v-layout>
@@ -107,7 +106,7 @@
           trackNumber: null,
           updatedAudio: null
         },
-        languages: [],
+        languages: null,
       };
     },
     components: {
@@ -118,13 +117,7 @@
         this.track.updatedAudio = e.target.files[0];
       },
       uploadForm() {
-        const form = new FormData();
-        form.append('name', this.track.name);
-        form.append('updated_audio', this.track.updatedAudio);
-        form.append('video', this.track.video);
-        form.append('number', this.track.trackNumber);
-        form.append('language', this.track.language.slug);
-        updateTrack(this.reciter.slug, this.album.year, this.track.slug, form)
+        updateTrack(this.reciter.slug, this.album.year, this.track.slug, this.track)
           .then(() => {
             this.$router.push({ name: 'Track-Page', params: { reciter: this.reciter.slug, album: this.album.year, track: this.track.slug } });
           });
@@ -136,7 +129,7 @@
         this.track.audio = data.audio;
         this.track.trackNumber = data.number;
         this.track.slug = data.slug;
-        this.track.language = data.language.slug;
+        this.track.language = data.language.data;
       }
     },
   };

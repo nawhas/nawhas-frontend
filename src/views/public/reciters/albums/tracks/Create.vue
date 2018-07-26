@@ -33,6 +33,7 @@
               item-text="name"
               item-value="slug"
               label="Select Nawha Language"
+              multiple
               persistent-hint
               return-object
               single-line
@@ -75,13 +76,7 @@
     name: 'Reciter-Create',
     methods: {
       uploadForm() {
-        const form = new FormData();
-        form.append('name', this.track.name);
-        form.append('audio', this.track.audio);
-        form.append('video', this.track.video);
-        form.append('number', this.track.trackNumber);
-        form.append('language', this.track.language.slug);
-        client.post(`/v1/reciters/${this.reciter.slug}/albums/${this.album.year}/tracks`, form)
+        client.post(`/v1/reciters/${this.reciter.slug}/albums/${this.album.year}/tracks`, this.track)
           .then(() => {
             this.$router.push(`/reciters/${this.reciter.slug}`);
           });
