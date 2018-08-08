@@ -37,20 +37,42 @@
         <v-layout row>
           <v-flex md7>
             <v-card class="track-page-content__card track-page-content__card--lyrics lyrics">
-              <div class="lyrics__content" v-if="track.lyrics">
-                <v-btn v-if="this.$store.getters['auth/isAdmin']"
-                       @click="goToEditLyric()"
-                >
-                  Edit Lyrics
-                </v-btn>
-                <div v-html="track.lyrics"></div>
+              <v-btn v-if="isAdmin"
+                @click="goToAddTracks"
+              >Add Lyric</v-btn>
+              <div class="lyrics__content" v-if="track.lyric">
+                <v-tabs centered>
+                  <v-tabs-bar class="white" dark>
+                    <v-tabs-slider class="red"></v-tabs-slider>
+                    <v-tabs-item
+                      v-for="i in track.lyric"
+                      :key="i.id"
+                      :href="'#tab-' + i.id"
+                    >
+                      {{ i.title }}
+                    </v-tabs-item>
+                  </v-tabs-bar>
+                  <v-tabs-items>
+                    <v-tabs-content
+                      v-for="i in track.lyric"
+                      :key="i.id"
+                      :id="'tab-' + i.id"
+                    >
+                      <v-card flat>
+                        <v-card-text>
+                          <!-- v-if="this.$store.getters['auth/isAdmin']" -->
+                          <v-btn v-if="isAdmin"
+                            @click="goToEditLyric()">
+                            Edit Lyrics
+                          </v-btn>
+                          <p>{{ i.text }}</p>
+                        </v-card-text>
+                      </v-card>
+                    </v-tabs-content>
+                  </v-tabs-items>
+                </v-tabs>
               </div>
               <div class="lyrics__empty" v-else>
-                <v-btn
-                  flat
-                  v-if="this.$store.getters['auth/isAdmin']"
-                  @click="goToAddTracks"
-                >Add Lyric</v-btn>
                 <div class="lyrics__empty-message">We don't have a write-up for this nawha yet.</div>
               </div>
             </v-card>
@@ -66,7 +88,7 @@
                          src: track.audio,
                          pic: track.album.artwork
                          }"
-                />
+                ></aplayer>
               </section>
               <section v-else>
                 <p>There is no track available yet</p>
@@ -111,12 +133,33 @@
     },
     data() {
       return {
-        track: null,
+        track: {
+          album: null,
+          audio: null,
+          created_at: null,
+          id: null,
+          language: null,
+          links: null,
+          lyric: null,
+          name: null,
+          number: null,
+          reciter: null,
+          slug: null,
+          updated_at: null,
+          video: null,
+        },
         background: '#222',
         textColor: '#fff',
         videoId: '',
-        startTime: ''
+        startTime: '',
+        active: null,
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
       };
+    },
+    computed: {
+      isAdmin() {
+        return this.$store.getters['auth/isAdmin'];
+      }
     },
     methods: {
       goToAddTracks() {
@@ -129,7 +172,19 @@
         this.$router.push({ name: 'Lyric-Update', params: { reciter: this.track.reciter.slug, album: this.track.album.year, track: this.track.slug } });
       },
       setTrack(track) {
-        this.track = track;
+        this.track.album = track.album;
+        this.track.audio = track.audio;
+        this.track.created_at = track.created_at;
+        this.track.id = track.id;
+        this.track.language = track.language.data;
+        this.track.links = track.links;
+        this.track.lyric = track.lyric.data;
+        this.track.name = track.name;
+        this.track.number = track.number;
+        this.track.reciter = track.reciter;
+        this.track.slug = track.slug;
+        this.track.updated_at = track.updated_at;
+        this.track.video = track.video;
         if (track.video) {
           this.videoId = this.$youtube.getIdFromURL(track.video);
           this.startTime = this.$youtube.getTimeFromURL(track.video);

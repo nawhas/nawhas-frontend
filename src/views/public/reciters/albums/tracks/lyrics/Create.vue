@@ -10,8 +10,8 @@
         <v-layout row>
           <v-flex xs12 sm6 offset-sm3>
             <v-checkbox
-              v-model="lyric.native_language"
               label="Tick this box if the lyric is not written in English"
+              v-model="nativeLanguage"
               required
             ></v-checkbox>
           </v-flex>
@@ -47,8 +47,8 @@
         track: null,
         lyric: {
           text: null,
-          'native_language': false
-        }
+        },
+        nativeLanguage: false
       };
     },
     methods: {
@@ -59,7 +59,7 @@
         const form = new FormData();
         form.append('text', this.lyric.text);
         form.append('track_id', this.track.id);
-        form.append('native_language', this.track.native_language);
+        form.append('native_language', this.nativeLanguage);
         client.post(`/v1/reciters/${this.track.album.reciter.slug}/albums/${this.track.album.year}/tracks/${this.track.slug}/lyrics`, form).then(() => {
           this.$router.push(`/reciters/${this.track.album.reciter.slug}/albums/${this.track.album.year}/tracks/${this.track.slug}`);
         });
