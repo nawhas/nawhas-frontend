@@ -65,7 +65,7 @@
                             @click="goToEditLyric(i)">
                             Edit Lyrics
                           </v-btn>
-                          <p>{{ i.text }}</p>
+                          <p v-html="i.text"></p>
                         </v-card-text>
                       </v-card>
                     </v-tabs-content>
@@ -153,7 +153,7 @@
         videoId: '',
         startTime: '',
         active: null,
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+        text: null
       };
     },
     computed: {
