@@ -3,7 +3,7 @@
     <section>
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
-          <h4>Update Lyrics for {{ trac }}</h4>
+          <h4>Update Lyrics for {{ track.name }}</h4>
         </v-flex>
       </v-layout>
       <v-form>
@@ -32,7 +32,7 @@
   import {getLyric, updateLyric} from '@/services/lyrics';
 
   export default {
-    name: 'LyricsCreate',
+    name: 'LyricsUpdate',
     data() {
       return {
         track: null,
@@ -48,10 +48,11 @@
       },
       uploadForm() {
         updateLyric(this.track.reciter.slug, this.track.album.year, this.track.slug, this.lyrics.id, {
-          text: this.lyrics.text
+          text: this.lyrics.text,
+          native_language: this.nativeLanguage
         })
           .then(() => {
-            this.$router.push({ name: 'Track-Page', params: { reciter: this.reciter.slug, album: this.album.year, track: this.track.slug } });
+            this.$router.push({ name: 'Track-Page', params: { reciter: this.track.reciter.slug, album: this.track.album.year, track: this.track.slug } });
           });
       },
     },
@@ -60,7 +61,12 @@
         .then(response => {
           this.setTrack(response.data);
         });
-      getLyric(this.$route.params.reciter, this.$route.params.album, this.$route.params.track)
+      getLyric(
+        this.$route.params.reciter,
+        this.$route.params.album,
+        this.$route.params.track,
+        this.$route.params.lyric
+      )
         .then(response => {
           this.setLyrics(response);
         });

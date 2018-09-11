@@ -62,7 +62,7 @@
                         <v-card-text>
                           <!-- v-if="this.$store.getters['auth/isAdmin']" -->
                           <v-btn v-if="isAdmin"
-                            @click="goToEditLyric()">
+                            @click="goToEditLyric(i)">
                             Edit Lyrics
                           </v-btn>
                           <p>{{ i.text }}</p>
@@ -168,8 +168,8 @@
       goToEditTrack() {
         this.$router.push({ name: 'Track-Update', params: { reciter: this.track.reciter.slug, album: this.track.album.year, track: this.track.slug } });
       },
-      goToEditLyric() {
-        this.$router.push({ name: 'Lyric-Update', params: { reciter: this.track.reciter.slug, album: this.track.album.year, track: this.track.slug } });
+      goToEditLyric(lyric) {
+        this.$router.push({ name: 'Lyric-Update', params: { reciter: this.track.reciter.slug, album: this.track.album.year, track: this.track.slug, lyric: lyric.id } });
       },
       setTrack(track) {
         this.track.album = track.album;

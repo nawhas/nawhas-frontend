@@ -4,15 +4,16 @@ import client from './client';
  * Get a single lyric
  * @param {string|int} reciter - Reciter ID
  * @param {string|int} album - Album ID
- * @param {string|int} id - Track ID
+ * @param track
+ * @param lyric
  * @param {object} [options]
  * @param {int} [options.page]
  * @param {int} [options.limit]
  *
  * @returns {Promise}
  */
-export function getLyric(reciter, album, id, options = {}) {
-  return client.get(`/v1/reciters/${reciter}/albums/${album}/tracks/${id}/lyrics`, options);
+export function getLyric(reciter, album, track, lyric, options = {}) {
+  return client.get(`/v1/reciters/${reciter}/albums/${album}/tracks/${track}/lyrics/${lyric}`, options);
 }
 
 /**
