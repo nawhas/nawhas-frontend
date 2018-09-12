@@ -1,5 +1,5 @@
 <template>
-  <v-card :class="classObject" :style="{ 'background-color': background }" @click="goToReciter()">
+  <v-card :class="classObject" :style="{ 'background-color': background }" @click.native="goToReciter()">
     <div class="reciter-card__avatar">
       <v-avatar size="48px">
         <img crossorigin ref="avatarElement" :src="avatar" :alt="name">

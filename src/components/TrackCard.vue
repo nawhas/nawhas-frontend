@@ -1,5 +1,5 @@
 <template>
-  <v-card class="track-card" :style="{ 'background-color': background }" @click="goToTrack()">
+  <v-card class="track-card" :style="{ 'background-color': background }" @click.native="goToTrack()">
     <div class="track-card__text" :style="{ 'color': textColor }">
       <div class="track-card__name body-2" :title="name">
         {{ name }}

@@ -22,7 +22,7 @@
           <p class="reciter-hero__bio">{{ reciter.description }}</p>
           <v-btn
             v-if="this.$store.getters['auth/isAdmin']"
-            @click="goToEditReciter"
+            @click.native="goToEditReciter"
           >Update Reciter</v-btn>
         </v-card>
       </div>

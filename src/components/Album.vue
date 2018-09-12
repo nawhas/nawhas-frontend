@@ -12,13 +12,13 @@
         flat
         primary
         v-if="this.$store.getters['auth/isAdmin']"
-        @click="goToEditAlbum"
+        @click.native="goToEditAlbum"
       >Edit Album</v-btn>
       <v-btn
         flat
         primary
         v-if="this.$store.getters['auth/isAdmin']"
-        @click="goToCreateTracks"
+        @click.native="goToCreateTracks"
       >Add Track</v-btn>
     </div>
     <v-data-table
@@ -26,8 +26,8 @@
         :items="tracks.data"
         hide-actions
         class="album__tracks">
-      <template slot="items" scope="props">
-        <tr @click="goToTrack(props.item)" class="album__track">
+      <template slot="items" slot-scope="props">
+        <tr @click.native="goToTrack(props.item)" class="album__track">
           <td class="text-xs-right">{{ props.item.number }}</td>
           <td>{{ props.item.name }}</td>
           <td>{{ props.item.reciter.name }}</td>
