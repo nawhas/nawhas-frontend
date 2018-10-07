@@ -97,6 +97,11 @@ const router = new Router({
           component: require('@/views/public/NewReleases'),
         },
         {
+          path: 'users',
+          name: 'Users',
+          component: require('@/views/public/Users'),
+        },
+        {
           path: 'upload',
           name: 'Upload',
           component: require('@/views/public/Upload'),

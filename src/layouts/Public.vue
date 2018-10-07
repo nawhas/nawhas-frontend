@@ -160,6 +160,13 @@ export default {
           group: 'manage',
           children: [
             {
+              icon: null,
+              title: 'Users',
+              exact: true,
+              to: '/users',
+              role: 'admin',
+            },
+            {
               icon: 'file_upload',
               title: 'Upload',
               exact: true,
