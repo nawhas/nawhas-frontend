@@ -35,8 +35,18 @@ export function getUser(id, options = {}) {
   return client.get(`/v1/users/${id}`, options);
 }
 
+export function makeAdmin(user) {
+  return client.post(`/v1/users/${user}/Make-Admin`);
+}
+
+export function makeContributor(user) {
+  return client.post(`/v1/users/${user}/Make-Contributor`);
+}
+
 export default {
   getNoAdminUsers,
   getAdminUsers,
   getUser,
+  makeAdmin,
+  makeContributor
 };

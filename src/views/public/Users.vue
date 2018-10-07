@@ -1,12 +1,22 @@
 <template>
   <div>
-    <h3>Admin Users</h3>
-    <userstable :users="adminUsers"></userstable>
-    <br>
-    <hr>
-    <br>
-    <h3>Non-Admin Users</h3>
-    <userstable :users="noAdminUsers"></userstable>
+    <v-flex md10 offset-md1>
+      <v-layout row>
+        <h3>Manage Users</h3>
+      </v-layout>
+      <v-layout row>
+        <h4>Admin Users</h4>
+      </v-layout>
+      <v-layout row>
+        <userstable :users="adminUsers"></userstable>
+      </v-layout>
+      <v-layout row>
+        <h4>Non-Admin Users</h4>
+      </v-layout>
+      <v-layout row>
+        <userstable :users="noAdminUsers"></userstable>
+      </v-layout>
+    </v-flex>
   </div>
 </template>
 

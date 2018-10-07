@@ -3,7 +3,6 @@
     :headers="headers"
     :items="users"
     hide-actions
-    class="elevation-1"
   >
     <template slot="items" scope="props">
       <td>{{ props.item.id }}</td>
@@ -12,16 +11,18 @@
       <td>{{ props.item.role }}</td>
       <td>{{ props.item.createdAt }}</td>
       <td v-if="props.item.role === 'admin'">
-        <v-btn>Make Contributor</v-btn>
+        <v-btn @click="makeContributorMethod(props.item)">Make Contributor</v-btn>
       </td>
       <td v-else>
-        <v-btn>Make Admin</v-btn>
+        <v-btn success @click="makeAdminMethod(props.item)">Make Admin</v-btn>
       </td>
     </template>
   </v-data-table>
 </template>
 
 <script>
+  import {makeContributor, makeAdmin} from '../services/users';
+
   export default {
     name: 'UsersTable',
     props: ['users'],
@@ -37,5 +38,13 @@
         ]
       };
     },
+    methods: {
+      makeAdminMethod(user) {
+        makeAdmin(user.id);
+      },
+      makeContributorMethod(user) {
+        makeContributor(user.id);
+      }
+    }
   };
 </script>
